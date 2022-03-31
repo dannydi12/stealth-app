@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
    webDir: 'build',
    bundledWebRuntime: false,
    server: {
-      url: 'http://192.168.3.134:3000',
+      url: `http://${process.env.REACT_APP_LOCAL_IP}:3000`,
       cleartext: true,
    },
 }
