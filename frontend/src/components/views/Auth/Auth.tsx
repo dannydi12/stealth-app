@@ -15,7 +15,7 @@ const Auth: FC = () => {
   const encryptedNonce = sha256(nonce).toString()
   const options: SignInWithAppleOptions = {
     clientId: 'com.crosswalk.app',
-    redirectURI: 'https://crosswalk-345817.firebaseapp.com/__/auth/handler',
+    redirectURI: 'https://www.crosswalkapp.com/login',
     scopes: 'email name',
     state: '12345',
     nonce: encryptedNonce,
@@ -33,6 +33,8 @@ const Auth: FC = () => {
   
       const { user } = await signInWithCredential(firebaseAuth, appleCredential)
       navigate(auth.profileCreator, { state: { uid: user.uid } })
+      
+      window.localStorage.setItem('user-id', user.uid)
     } catch (err: any) {
       alert(err.message)
     }

@@ -7,7 +7,7 @@ signupRouter.route('/').post(async (req, res) => {
   try {
     console.log(req.body)
     const {
-      _id, username, backgroundColor, emoji, signUpLocation,
+      _id, username, avatar, signUpLocation,
     } = req.body
 
     if ((res as any)?.user?._id) {
@@ -17,15 +17,13 @@ signupRouter.route('/').post(async (req, res) => {
     const user = await User.create({
       _id,
       username,
-      avatar: {
-        backgroundColor,
-        emoji,
-      },
+      avatar,
       signUpLocation,
     })
 
     res.json(user)
   } catch (err) {
+    console.log((err as any).message)
     res.status(401).send((err as any).message)
   }
 })
