@@ -1,1 +1,6 @@
-{}
+{
+	"appId": "com.crosswalkapp.app",
+	"appName": "crosswalk",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

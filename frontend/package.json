@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^1.0.1",
     "@capacitor/core": "^3.4.3",
     "@capacitor/ios": "^3.4.3",
     "@testing-library/jest-dom": "^5.14.1",
