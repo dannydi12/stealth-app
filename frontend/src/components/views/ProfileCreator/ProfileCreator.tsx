@@ -1,15 +1,18 @@
 import React, { FC, useState } from 'react'
+import { Geolocation } from '@capacitor/geolocation'
 import generate from 'project-name-generator'
 import Confetti from 'react-confetti'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { StyledProfileCreator } from '.'
 import { mailman } from '../../../utils/scripts/mailman'
+import { home } from '../../routes'
 import { Avatar } from '../../shared'
 
 type AvatarType = { emoji: string; color: string }
 
 const ProfileCreator: FC = () => {
   const { state }: any = useLocation()
+  const navigate = useNavigate()
   const emojis = ['✌', '😂', '😝', '😁', '😱', '👉', '🙌', '🍻', '🔥', '🌈', '☀', '🎈', '🌹', '💄', '🎀', '⚽', '🎾', '🏁', '😡', '👿', '🐻', '🐶', '🐬', '🐟', '🍀', '👀', '🚗', '🍎', '💝', '💙', '👌', '❤', '😍', '😉', '😓', '😳', '💪', '💩', '🍸', '🔑', '💖', '🌟', '🎉', '🌺', '🎶', '👠', '🏈', '⚾', '🏆', '👽', '💀', '🐵', '🐮', '🐩', '🐎', '💣', '👃', '👂', '🍓', '💘', '💜', '👊', '💋', '😘', '😜', '😵', '🙏', '👋', '🚽', '💃', '💎', '🚀', '🌙', '🎁', '⛄', '🌊', '⛵', '🏀', '🎱', '💰', '👶', '👸', '🐰', '🐷', '🐍', '🐫', '🔫', '👄', '🚲', '🍉', '🍌', '💚']
   const colors = ['fee2e2', 'ffedd5', 'fef3c7', 'fef9c3', 'ecfccb', 'dcfce7', 'd1fae5', 'ccfbf1', 'cffafe', 'e0f2fe', 'dbeafe', 'e0e7ff', 'ede9fe', 'f3e8ff', 'fae8ff', 'fce7f3', 'ffe4e6']
   const autoHandle = generate().dashed
@@ -18,21 +21,29 @@ const ProfileCreator: FC = () => {
   const [avatar, setAvatar] = useState<AvatarType>({ emoji: emojis[0], color: colors[1] })
 
   const authenticate = async () => {
-    const data = {
-      _id: state.uid,
-      username: handle || autoHandle,
-      avatar: {
-        color: avatar.color,
-        pfp: avatar.emoji,
-      },
-      signUpLocation: {
-        type: 'Point',
-        coordinates: [0, 0],
-      },
+    try {
+      await Geolocation.requestPermissions()
+      const coordinates = await Geolocation.getCurrentPosition()
+      const data = {
+        _id: state.uid,
+        username: handle || autoHandle,
+        avatar: {
+          color: avatar.color,
+          pfp: avatar.emoji,
+        },
+        signUpLocation: {
+          type: 'Point',
+          coordinates: [coordinates.coords.longitude, coordinates.coords.latitude],
+        },
+      }
+  
+      await mailman('signup', 'POST', JSON.stringify(data))
+    } catch (err) {
+      console.log(err)
+    } finally {
+      navigate(home.home)
+      setShowConfetti(true)
     }
-
-    await mailman('signup', 'POST', JSON.stringify(data))
-    setShowConfetti(true)
   }
 
   const handleSelection = async (value: string) => {
