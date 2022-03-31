@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import {
   SignInWithApple,
-  SignInWithAppleResponse,
   SignInWithAppleOptions,
 } from '@capacitor-community/apple-sign-in'
+import { LogoIcon } from '../LogoIcon'
 import { StyledAuthView } from '.'
 
 const AuthView: FC = () => {
@@ -21,7 +21,10 @@ const AuthView: FC = () => {
 
   return (
     <StyledAuthView>
-      <div className=""></div>
+      <div className="app-branding">
+        <LogoIcon/>
+        <h1>Crosswalk</h1>
+      </div>
       <button className="continue-with-apple-btn">Sign in With Apple</button>
     </StyledAuthView>
   )
