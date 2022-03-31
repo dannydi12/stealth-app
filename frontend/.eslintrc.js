@@ -14,6 +14,7 @@ module.exports = {
    },
    plugins: ['react', '@typescript-eslint'],
    rules: {
+      'import/no-extraneous-dependencies': 'off',
       'import/no-unresolved': 'off',
       'react/function-component-definition': 'off',
       'no-nested-ternary': 'off', // in most cases this will never come up but if you ever need nested ternary it is usually just so code is more concise
