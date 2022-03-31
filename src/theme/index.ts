@@ -1,1 +1,1 @@
-export { default as GlobalStyle } from './global.ts'
+export { default as GlobalStyle } from './global'
