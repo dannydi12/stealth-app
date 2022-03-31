@@ -7,14 +7,16 @@ const bodyParser = express.json()
 
 signupRouter.route('/').post(bodyParser, getToken, async (req, res) => {
   try {
-    const { _id, username, backgroundColor, emoji, signUpLocation } = req.body
+    const {
+      _id, username, backgroundColor, emoji, signUpLocation,
+    } = req.body
 
     if ((res as any)?.user?._id) {
       throw new Error('Auth error.')
     }
 
     const user = await User.create({
-      _id: _id,
+      _id,
       username,
       avatar: {
         backgroundColor,

@@ -14,18 +14,18 @@ export interface UserType extends Document {
 
 export const UserSchema = new Schema<UserType>(
   {
-    _id: {type: String, required: true},
-    username: {type: String, required: true},
+    _id: { type: String, required: true },
+    username: { type: String, required: true },
     avatar: {
-      backgroundColor: {type: String, required: true},
-      emoji: {type: String, required: true}
+      backgroundColor: { type: String, required: true },
+      emoji: { type: String, required: true },
     },
     signUpLocation: {
       type: { type: String },
-      coordinates: [Number]
-    }
+      coordinates: [Number],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 export const User = model<UserType>('User', UserSchema)
