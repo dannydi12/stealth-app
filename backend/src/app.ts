@@ -7,6 +7,8 @@ import cors from 'cors'
 import helmet from 'helmet'
 import CONFIG from '../config'
 
+import signupRouter from './users/signup'
+
 const app = express()
 
 const morganOption = CONFIG.NODE_ENV === 'production' ? 'tiny' : 'common'
@@ -29,6 +31,8 @@ app.use((error, req, res, next) => {
   }
   res.status(500).send(response)
 })
+
+app.use('/signup', signupRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!')
