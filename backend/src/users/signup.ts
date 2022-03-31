@@ -1,21 +1,21 @@
 import express from 'express'
+import { onlyAuthorized } from '../middleware'
 import { User } from '../models/User'
 
 const signupRouter = express.Router()
 
-signupRouter.route('/').post(async (req, res) => {
+signupRouter.route('/').post(onlyAuthorized, async (req, res) => {
   try {
-    console.log(req.body)
     const {
       _id, username, avatar, signUpLocation,
     } = req.body
 
-    if ((res as any)?.user?._id) {
+    if (res.user?._id) {
       throw new Error('Auth error.')
     }
 
     const user = await User.create({
-      _id,
+      _id: res.user?._id,
       username,
       avatar,
       signUpLocation,

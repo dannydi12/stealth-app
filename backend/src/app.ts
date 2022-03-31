@@ -9,6 +9,7 @@ import { getToken } from './middleware';
 
 import signupRouter from './users/signup';
 import dropRouter from './drops';
+import commentRouter from './comments';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use((error, req, res, next) => {
 
 app.use('/signup', signupRouter);
 app.use('/drops', dropRouter);
+app.use('/comments', commentRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

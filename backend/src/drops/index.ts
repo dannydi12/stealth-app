@@ -3,10 +3,9 @@ import { onlyAuthorized } from '../middleware';
 import { Drop } from '../models/Drop';
 
 const dropRouter = express.Router();
-const mainRoute = dropRouter.route('/');
 
-mainRoute.get(onlyAuthorized, async (req, res) => {
-  try {
+dropRouter.route('/')
+  .get(onlyAuthorized, async (req, res) => {
     const { currentCoordinates } = req.body;
 
     const drops = await Drop.aggregate([
@@ -20,19 +19,15 @@ mainRoute.get(onlyAuthorized, async (req, res) => {
           spherical: true,
         },
       },
-    ])
+    ]);
 
     res.json(drops);
-  } catch (err) {
-    res.status(500).send((err as any).message);
-  }
-});
-
-mainRoute.post(onlyAuthorized, async (req, res) => {
-  try {
+  })
+  .post(onlyAuthorized, async (req, res) => {
     const { message, type, coordinates } = req.body;
 
     const drop = await Drop.create({
+      author: res.user?._id,
       message,
       type,
       location: {
@@ -41,10 +36,15 @@ mainRoute.post(onlyAuthorized, async (req, res) => {
       },
     });
 
+    res.status(201).json(drop);
+  });
+
+dropRouter.route('/:id')
+  .get(onlyAuthorized, async (req, res) => {
+    const { id } = req.params;
+    const drop = await Drop.findById(id);
+
     res.json(drop);
-  } catch (err) {
-    res.status(500).send((err as any).message);
-  }
-});
+  });
 
 export default dropRouter;
