@@ -4,12 +4,12 @@ import { User } from '../models/User'
 
 const signupRouter = express.Router()
 
-signupRouter.route('/').post(onlyAuthorized, async (req, res) => {
+signupRouter.route('/').post(async (req, res) => {
   try {
     const {
       _id, username, avatar, signUpLocation,
     } = req.body
-
+     console.log(res.user, 'sd')
     if (res.user?._id) {
       throw new Error('Auth error.')
     }

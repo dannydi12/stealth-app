@@ -7,12 +7,13 @@ import { StyledMap } from '.'
 mapboxgl.accessToken = 'pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg'
 
 const Map: React.FC = () => {
-   const mapContainer = useRef<any>(null);
-   const map = useRef<mapboxgl.Map | null>(null);
+   const mapContainer = useRef<any>(null)
+   const map = useRef<mapboxgl.Map | null>(null)
    const [watchId, setWatchId] = useState('')
-   const [lat, setLat] = useState(34.19965158005756);
-   const [lng, setLng] = useState(-118.32767444234798);
-   const [zoom, setZoom] = useState(16);
+   const [lat, setLat] = useState(34.19965158005756)
+   const [lng, setLng] = useState(-118.32767444234798)
+   const [zoom, setZoom] = useState(16)
+   const [bearing, setBearing] = useState(0)
 
    const watchMe = async () => {
     const watch = await Geolocation.watchPosition({
@@ -20,14 +21,21 @@ const Map: React.FC = () => {
     }, (data) => {
       setLat(data?.coords.latitude || 0)
       setLng(data?.coords.longitude || 0)
+      setBearing(data?.coords.heading || 0)
     })
 
     setWatchId(watch)
    }
 
    useEffect(() => {
-    map.current?.panTo([lng, lat])
-   }, [lat, lng])
+      const mabObject = map.current
+      if (!mabObject) {
+        return
+      }
+
+      mabObject.panTo([lng, lat])
+      mabObject.setBearing(bearing)
+   }, [lat, lng, bearing])
 
    useEffect(() => {
       if (map.current) return; // initialize map only once
@@ -49,7 +57,7 @@ const Map: React.FC = () => {
    
    return (
       <StyledMap>
-         <div ref={mapContainer} className="map-container" />
+        <div ref={mapContainer} className="map-container" />
       </StyledMap>
    )
 }
