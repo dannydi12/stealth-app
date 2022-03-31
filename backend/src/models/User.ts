@@ -3,8 +3,8 @@ import { Schema, model, Document } from 'mongoose'
 export interface UserType extends Document {
   username: string
   avatar: {
-    backgroundColor: string;
-    emoji: string;
+    color: string;
+    pfp: string;
   }
   signUpLocation: {
     type: string
@@ -17,8 +17,8 @@ export const UserSchema = new Schema<UserType>(
     _id: { type: String, required: true },
     username: { type: String, required: true },
     avatar: {
-      backgroundColor: { type: String, required: true },
-      emoji: { type: String, required: true },
+      color: { type: String, required: true },
+      pfp: { type: String, required: true },
     },
     signUpLocation: {
       type: { type: String },
