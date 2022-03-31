@@ -7,16 +7,20 @@ import helmet from 'helmet';
 import CONFIG from '../config';
 
 import signupRouter from './users/signup';
+import { getToken } from './middleware';
 
 dotenv.config();
 
 const app = express();
+const bodyParser = express.json()
 
 const morganOption = CONFIG.NODE_ENV === 'production' ? 'tiny' : 'common';
 
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+app.use(getToken)
+app.use(bodyParser)
 app.use((error, req, res, next) => {
   let response;
   if (CONFIG.NODE_ENV === 'production') {
