@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Map } from '../../Map'
 import { auth } from '../../routes'
+import { Map } from '../Map'
 
 const Container = styled.div`
    width: 100%;
