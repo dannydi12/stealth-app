@@ -42,7 +42,7 @@ const ProfileCreator: FC = () => {
         style={{ pointerEvents: 'none' }}
         numberOfPieces={showConfetti ? 500 : 0}
         recycle={false}
-        onConfettiComplete={(confetti: { reset: () => void }) => {
+        onConfettiComplete={(confetti: any) => {
           setShowConfetti(false)
           confetti.reset()
         }}

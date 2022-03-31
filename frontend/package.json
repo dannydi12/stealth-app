@@ -17,6 +17,7 @@
     "@types/styled-components": "^5.1.24",
     "mapbox-gl": "^2.7.1",
     "prettier": "^2.6.1",
+    "project-name-generator": "^2.1.9",
     "react": "^18.0.0",
     "react-confetti": "^6.0.1",
     "react-dom": "^18.0.0",
