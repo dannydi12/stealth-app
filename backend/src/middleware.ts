@@ -1,19 +1,26 @@
-import { auth } from "./firebase"
-import { User } from "./models/User"
+import { auth } from './firebase'
+import { User } from './models/User'
 
 export const getToken = async (req, res, next) => {
-   if (!req.headers.authorization) {
-      return res.status(401).send('No token provided')
-   }
+  if (!req.headers.authorization) {
+    return res.status(401).send('No token provided')
+  }
 
-   const token = req?.headers?.authorization?.split('Bearer ')[1] || ''
-   const user = await getUserInfo(token)
+  const token = req?.headers?.authorization?.split('Bearer ')[1] || ''
+  const user = await getUserInfo(token)
 
-   res.user = user
+  res.user = user
 
-   return next()
+  return next()
 }
 
+export const onlyAuthorized = async (req, res, next) => {
+  if (!res.user) {
+    return res.status(401).send('Must be logged in.')
+  }
+
+  return next()
+}
 
 export const getUserInfo = async (token: string) => {
   try {
@@ -21,8 +28,7 @@ export const getUserInfo = async (token: string) => {
     const user = await User.findById(decodedToken?.uid as string).lean()
 
     return { _id: decodedToken?.uid, ...user }
-  }
-  catch (err) {
+  } catch (err) {
     return null
   }
 }

@@ -1,21 +1,21 @@
 import express from 'express'
-import { getToken } from '../middleware'
 import { User } from '../models/User'
 
 const signupRouter = express.Router()
-const bodyParser = express.json()
 
-signupRouter.route('/').post(bodyParser, getToken, async (req, res) => {
+signupRouter.route('/').post(async (req, res) => {
   try {
     console.log(req.body)
-    const { _id, username, backgroundColor, emoji, signUpLocation } = req.body
+    const {
+      _id, username, backgroundColor, emoji, signUpLocation,
+    } = req.body
 
     if ((res as any)?.user?._id) {
       throw new Error('Auth error.')
     }
 
     const user = await User.create({
-      _id: _id,
+      _id,
       username,
       avatar: {
         backgroundColor,
