@@ -2,5 +2,9 @@
 	"appId": "com.crosswalkapp.app",
 	"appName": "crosswalk",
 	"webDir": "build",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"server": {
+		"url": "http://192.168.2.34:3000",
+		"cleartext": true
+	}
 }
