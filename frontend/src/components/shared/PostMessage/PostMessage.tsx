@@ -1,13 +1,12 @@
-// @ts-nocheck
-import React, { useEffect, useRef } from 'react'
-import { Keyboard } from '@capacitor/keyboard'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ProfileIcon } from '../ProfileIcon'
 
-const Container = styled.div`
+const Container = styled.form`
    display: flex;
    justify-content: center;
    align-items: center;
+   position: relative;
    width: 100%;
    gap: 17px;
 
@@ -31,20 +30,42 @@ const Input = styled.input.attrs(() => ({ type: 'text' }))`
    }
 `
 
-const PostMessage: React.FC = ({ children }) => {
-   const inputElement = useRef(null)
+const Button = styled.button`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: transparent;
+   border: none;
+   position: absolute;
+   right: 13px;
+   bottom: 27px;
+   color: #007aff;
+   font-size: 15px;
+`
 
-   Keyboard.addListener('keyboardWillShow', (info) => {
-      Keyboard.show()
-   })
+type Props = {
+   onSubmit: (e: any, data: string) => void
+}
+
+const PostMessage: React.FC<Props> = ({ children, onSubmit }) => {
+   const [message, setMessage] = useState('')
+
+   const handleChange = (e) => {
+      if (e.target.value.length < 250) setMessage(e.target.value)
+   }
+
+   const handleSubmit = (e) => {
+      onSubmit(e, message)
+      setMessage('')
+   }
 
    return (
-      // lol
-      <Container>
+      <Container onSubmit={handleSubmit}>
          <ProfileIcon color="#E6E2FE" size="37px" fontSize="21px">
             🏩
          </ProfileIcon>
-         <Input ref={inputElement} placeholder="Write Comments" />
+         <Input placeholder="Write Comments" value={message} onChange={handleChange} />
+         <Button>Drop</Button>
       </Container>
    )
 }

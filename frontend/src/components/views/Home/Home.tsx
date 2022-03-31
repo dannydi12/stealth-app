@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const Home: React.FC = () => (
    <Container>
-      <Drawer id="asd" />
+      <Drawer isPost={false} id="asd" />
    </Container>
 )
 
