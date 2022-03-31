@@ -1,15 +1,13 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { home } from '../routes'
-import { Home } from '../views'
+import React, { FC } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { home, auth } from '../routes'
+import { Home, Auth } from '../views'
 
-const AppRoutes: React.FC = () => (
-   <Routes>
-      <Route element={<Home />}>
-         <Route path={home.home} element={<Home />} />
-         <Route path="*" element={<Home />} />
-      </Route>
-   </Routes>
+const AppRoutes: FC = () => (
+  <Routes>
+    <Route path={auth.auth} element={<Auth />} />
+    <Route path="/" element={<Home />} />
+  </Routes>
 )
 
 export default AppRoutes

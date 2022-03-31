@@ -1,3 +1,3 @@
 export const home = {
-   home: '/home',
+  home: '/home',
 }
