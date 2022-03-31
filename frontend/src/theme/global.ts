@@ -11,7 +11,7 @@ body {
   line-height: 24px;
   -webkit-font-smoothing: antialiased; 
   height: 100%;
-  font-family: 'SF Pro';
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro';
   font-weight: 500;
   color: #292E35;
   margin: 0;
