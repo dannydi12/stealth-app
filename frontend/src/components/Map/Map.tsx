@@ -16,18 +16,18 @@ const Map: React.FC = () => {
       if (map.current) return; // initialize map only once
       map.current = new mapboxgl.Map({
          container: mapContainer.current,
-         style: 'mapbox://styles/mapbox/streets-v11',
+         style: 'mapbox://styles/mapbox/dark-v10',
          center: [lng, lat],
          dragPan: false,
          zoom,
-    })
+      })
    })
    
    return (
-       <StyledMap>
-            <div ref={mapContainer} className="map-container" />
-       </StyledMap>
-)
+      <StyledMap>
+         <div ref={mapContainer} className="map-container" />
+      </StyledMap>
+   )
 }
 
 export default Map
