@@ -19,11 +19,8 @@ export const DropSchema = new Schema<DropType>(
     message: String,
     type: { type: String, required: true },
     location: {
-      type: {
-        type: { type: String, required: true },
-        coordinates: { type: [Number], required: true },
-      },
-      required: true,
+      type: { type: String, required: true },
+      coordinates: { type: [Number], required: true },
     },
     comments: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },

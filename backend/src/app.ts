@@ -5,9 +5,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import CONFIG from '../config';
+import { getToken } from './middleware';
 
 import signupRouter from './users/signup';
-import { getToken } from './middleware';
+import dropRouter from './drops';
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use((error, req, res, next) => {
 });
 
 app.use('/signup', signupRouter);
+app.use('/drops', dropRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

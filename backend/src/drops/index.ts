@@ -9,13 +9,18 @@ mainRoute.get(onlyAuthorized, async (req, res) => {
   try {
     const { currentCoordinates } = req.body;
 
-    const drops = await Drop.find({
-      location: {
-        $near: { type: 'Point', coordinates: currentCoordinates },
-        $minDistance: 0,
-        maxDistance: 20,
+    const drops = await Drop.aggregate([
+      {
+        $geoNear: {
+          near: { type: 'Point', coordinates: currentCoordinates },
+          distanceField: 'dist.calculated',
+          maxDistance: 2,
+          // query: { category: 'Parks' },
+          includeLocs: 'dist.location',
+          spherical: true,
+        },
       },
-    })
+    ])
 
     res.json(drops);
   } catch (err) {
