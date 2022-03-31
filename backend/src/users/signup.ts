@@ -1,11 +1,9 @@
 import express from 'express'
-import { getToken } from '../middleware'
 import { User } from '../models/User'
 
 const signupRouter = express.Router()
-const bodyParser = express.json()
 
-signupRouter.route('/').post(bodyParser, getToken, async (req, res) => {
+signupRouter.route('/').post(async (req, res) => {
   try {
     const {
       _id, username, backgroundColor, emoji, signUpLocation,
