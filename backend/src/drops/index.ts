@@ -27,6 +27,7 @@ dropRouter.route('/')
     const { message, type, coordinates } = req.body;
 
     const drop = await Drop.create({
+      author: res.user?._id,
       message,
       type,
       location: {
