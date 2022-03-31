@@ -15,7 +15,7 @@ const Auth: FC = () => {
   const encryptedNonce = sha256(nonce).toString()
   const options: SignInWithAppleOptions = {
     clientId: 'com.crosswalk.app',
-    redirectURI: 'https://www.crosswalkapp.com/login',
+    redirectURI: 'https://crosswalk-345817.firebaseapp.com/__/auth/handler',
     scopes: 'email name',
     state: '12345',
     nonce: encryptedNonce,
