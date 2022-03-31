@@ -14,6 +14,7 @@ module.exports = {
    },
    plugins: ['react', '@typescript-eslint'],
    rules: {
+      'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
       'import/no-unresolved': 'off',
       'react/function-component-definition': 'off',
@@ -51,7 +52,6 @@ module.exports = {
       'react/jsx-props-no-spreading': 'off', // we want prop spreading on jsx
       'no-underscore-dangle': 'off', // _id
       'object-curly-newline': 'off', // inline object stuff this makes our prop imports better
-      'no-console': 'error', // lets us console.log
       semi: 'off', // ew
 
       // on imports we dont need the file extension name

@@ -34,6 +34,7 @@ const StyledAuth = styled.div`
       width: 100%;
       font-size: 1rem;
       font-weight: 600;
+      border-radius: 6px;
       color: black;
     }
   }

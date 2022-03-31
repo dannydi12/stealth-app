@@ -1,0 +1,10 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.printWidth": 100,
+  "prettier.trailingComma": "all",
+  "prettier.useTabs": true,
+  "editor.useTabStops": false,
+  "prettier.jsxSingleQuote": true
+}
