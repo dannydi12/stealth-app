@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react'
+import './utils/firebase'
 import { Keyboard } from '@capacitor/keyboard'
 import { BrowserRouter } from 'react-router-dom'
 import styled from 'styled-components'
