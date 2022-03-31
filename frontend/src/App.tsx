@@ -1,4 +1,5 @@
 import React from 'react'
+import './utils/firebase'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRoutes } from './components/AppRoutes'
 import { GlobalStyle } from './theme'

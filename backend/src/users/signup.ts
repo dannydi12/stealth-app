@@ -7,6 +7,7 @@ const bodyParser = express.json()
 
 signupRouter.route('/').post(bodyParser, getToken, async (req, res) => {
   try {
+    console.log(req.body)
     const { _id, username, backgroundColor, emoji, signUpLocation } = req.body
 
     if ((res as any)?.user?._id) {

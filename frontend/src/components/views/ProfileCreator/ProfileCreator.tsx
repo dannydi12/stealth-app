@@ -2,6 +2,7 @@ import React, { createRef, FC, useState } from 'react'
 import generate from 'project-name-generator'
 import Confetti from 'react-confetti'
 import { StyledProfileCreator } from '.'
+import { mailman } from '../../../utils/scripts/mailman'
 import { Avatar } from '../../shared'
 
 type AvatarType = { emoji: string; color: string }
@@ -14,22 +15,9 @@ const ProfileCreator: FC = () => {
   const [handle, setHandle] = useState('')
   const [avatar, setAvatar] = useState<AvatarType>({ emoji: emojis[0], color: colors[1] })
 
-  const config = {
-    angle: 90,
-    spread: 360,
-    startVelocity: 40,
-    elementCount: 70,
-    dragFriction: 0.12,
-    duration: 3000,
-    stagger: 3,
-    width: '10px',
-    height: '10px',
-    perspective: '500px',
-    colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
-  }
-
   const authenticate = async () => {
-    //
+    await mailman('signup', 'POST', JSON.stringify({ data: true }))
+    setShowConfetti(true)
   }
 
   const handleSelection = async (value: string) => {
@@ -69,7 +57,7 @@ const ProfileCreator: FC = () => {
            )
         })}
       </div>
-      <button type="button" className="finish-btn" onClick={() => setShowConfetti(true)}>Finish</button>
+      <button type="button" className="finish-btn" onClick={() => authenticate()}>Finish</button>
     </StyledProfileCreator>
   )
 }
