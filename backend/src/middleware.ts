@@ -14,6 +14,14 @@ export const getToken = async (req, res, next) => {
   return next()
 }
 
+export const onlyAuthorized = async (req, res, next) => {
+  if (!res.user) {
+    return res.status(401).send('Must be logged in.')
+  }
+
+  return next()
+}
+
 export const getUserInfo = async (token: string) => {
   try {
     const decodedToken = await auth.verifyIdToken(token)
