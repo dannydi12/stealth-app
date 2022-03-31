@@ -1,6 +1,7 @@
 import React, { createRef, FC, useState } from 'react'
 import generate from 'project-name-generator'
 import Confetti from 'react-confetti'
+import { useLocation, useParams } from 'react-router-dom'
 import { StyledProfileCreator } from '.'
 import { mailman } from '../../../utils/scripts/mailman'
 import { Avatar } from '../../shared'
@@ -8,6 +9,7 @@ import { Avatar } from '../../shared'
 type AvatarType = { emoji: string; color: string }
 
 const ProfileCreator: FC = () => {
+  const { state: { uid } }: any = useLocation()
   const emojis = ['✌', '😂', '😝', '😁', '😱', '👉', '🙌', '🍻', '🔥', '🌈', '☀', '🎈', '🌹', '💄', '🎀', '⚽', '🎾', '🏁', '😡', '👿', '🐻', '🐶', '🐬', '🐟', '🍀', '👀', '🚗', '🍎', '💝', '💙', '👌', '❤', '😍', '😉', '😓', '😳', '💪', '💩', '🍸', '🔑', '💖', '🌟', '🎉', '🌺', '🎶', '👠', '🏈', '⚾', '🏆', '👽', '💀', '🐵', '🐮', '🐩', '🐎', '💣', '👃', '👂', '🍓', '💘', '💜', '👊', '💋', '😘', '😜', '😵', '🙏', '👋', '🚽', '💃', '💎', '🚀', '🌙', '🎁', '⛄', '🌊', '⛵', '🏀', '🎱', '💰', '👶', '👸', '🐰', '🐷', '🐍', '🐫', '🔫', '👄', '🚲', '🍉', '💛', '💚']
   const colors = ['fee2e2', 'ffedd5', 'fef3c7', 'fef9c3', 'ecfccb', 'dcfce7', 'd1fae5', 'ccfbf1', 'cffafe', 'e0f2fe', 'dbeafe', 'e0e7ff', 'ede9fe', 'f3e8ff', 'fae8ff', 'fce7f3', 'ffe4e6']
   const autoHandle = generate().dashed
@@ -30,7 +32,7 @@ const ProfileCreator: FC = () => {
         style={{ pointerEvents: 'none' }}
         numberOfPieces={showConfetti ? 500 : 0}
         recycle={false}
-        onConfettiComplete={(confetti: { reset: () => void }) => {
+        onConfettiComplete={(confetti: any) => {
           setShowConfetti(false)
           confetti.reset()
         }}

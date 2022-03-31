@@ -32,7 +32,6 @@ const Auth: FC = () => {
       })
   
       const { user } = await signInWithCredential(firebaseAuth, appleCredential)
-      
       navigate(auth.profileCreator, { state: { uid: user.uid } })
     } catch (err: any) {
       alert(err.message)
