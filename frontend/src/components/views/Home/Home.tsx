@@ -10,7 +10,7 @@ const Container = styled.div`
    gap: 10px;
    width: 100%;
    height: 100%;
-   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-left);
+   padding: env(safe-area-inset-right) env(safe-area-inset-left);
 `
 
 const Home: React.FC = () => (

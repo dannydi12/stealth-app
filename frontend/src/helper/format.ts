@@ -1,3 +1,4 @@
+// @ts-nocheck
 import moment from 'moment'
 
 export const formatDate = (date: any) => {
@@ -10,3 +11,8 @@ export const formatDate = (date: any) => {
    if (date.year() === today.year()) return `${today.diff(date, 'months')}m`
    return `${today.diff(date, 'years')}y`
 }
+
+export const formatNumber = (viewCount: number) =>
+   Math.abs(viewCount) > 999
+      ? `${Math.sign(viewCount) * (Math.abs(viewCount) / 1000).toFixed(1)}k`
+      : Math.sign(viewCount) * Math.abs(viewCount)

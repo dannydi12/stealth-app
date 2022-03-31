@@ -24,6 +24,8 @@ const Container = styled.div<ContainerProps>`
    align-items: center;
    width: ${({ size }) => size};
    height: ${({ size }) => size};
+   min-width: ${({ size }) => size};
+   min-height: ${({ size }) => size};
 
    border: 2.5px solid white;
    border-radius: 50%;
