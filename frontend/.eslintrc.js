@@ -14,6 +14,7 @@ module.exports = {
    },
    plugins: ['react', '@typescript-eslint'],
    rules: {
+      'react/jsx-one-expression-per-line': 'off',
       'import/no-webpack-loader-syntax': 'off',
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',

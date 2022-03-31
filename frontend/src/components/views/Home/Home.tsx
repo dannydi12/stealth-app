@@ -5,6 +5,11 @@ import { Map } from '../../Map'
 import { auth } from '../../routes'
 
 const Container = styled.div`
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
    width: 100%;
    height: 100%;
    background-color: yellow;
@@ -12,7 +17,6 @@ const Container = styled.div`
 `
 
 const Home: React.FC = () => (
-
   <Container>
     sup fuckers 
     <Map />

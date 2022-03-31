@@ -9,6 +9,12 @@ const config: CapacitorConfig = {
     url: 'http://192.168.2.34:3000',
     cleartext: true,
   },
+  plugins: {
+   Keyboard: {
+      resize: 'body',
+      style: 'dark',
+   },
+},
 }
 
 export default config
