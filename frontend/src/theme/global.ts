@@ -11,15 +11,16 @@ body {
   line-height: 24px;
   -webkit-font-smoothing: antialiased; 
   height: 100%;
-  font-family: 'SF Pro';
   font-weight: 500;
-  color: #292E35;
+  color: #000;
   margin: 0;
+  background-color: #27272a;
 }
 
 *,
 *:before,
 *:after {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro';
   box-sizing: inherit;
 }
 h1,
@@ -43,12 +44,7 @@ p {
   line-height: 20px;
 }
 
-a {
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-}
+
 button,
 a {
   cursor: pointer;
