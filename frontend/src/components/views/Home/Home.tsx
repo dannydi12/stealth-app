@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Button, Drawer, ProfileIcon, Username } from '../../shared'
+import { Map } from '../../Map'
+import { auth } from '../../routes'
 
 const Container = styled.div`
    display: flex;
@@ -10,13 +12,16 @@ const Container = styled.div`
    gap: 10px;
    width: 100%;
    height: 100%;
-   padding: env(safe-area-inset-right) env(safe-area-inset-left);
+   background-color: yellow;
+   padding-top: 50vh;
 `
 
 const Home: React.FC = () => (
-   <Container>
-      <Drawer isPost={false} id="asd" />
-   </Container>
+  <Container>
+    sup fuckers 
+    <Map />
+    <Link to={auth.auth}>To Auth</Link> 
+  </Container>
 )
 
 export default Home
