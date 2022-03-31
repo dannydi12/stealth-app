@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Map } from '../../Map'
 
 const Container = styled.div`
    width: 100%;
@@ -7,6 +8,11 @@ const Container = styled.div`
    background-color: yellow;
 `
 
-const Home: React.FC = () => <Container>sup fuckers</Container>
+const Home: React.FC = () => (
+<Container>
+{/* sup fuckers */}
+<Map />
+</Container>
+)
 
 export default Home
