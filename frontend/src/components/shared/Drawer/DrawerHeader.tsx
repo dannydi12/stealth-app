@@ -2,13 +2,15 @@ import React from 'react'
 import moment from 'moment'
 import styled from 'styled-components'
 import { formatDate, formatNumber } from '../../../helper'
-import { ProfileIcon } from '../ProfileIcon'
+import { Avatar } from '../Avatar'
 import { Username } from '../Username'
 
 type Props = {
    scale: number
-   color: string
-   pfp: string
+   avatar: {
+      emoji: string
+      color: string
+   }
    username: string
    views: number
    postDate: Date
@@ -21,6 +23,7 @@ const Header = styled.div`
    display: flex;
    align-items: center;
    flex-direction: column;
+   position: relative;
    gap: 11px;
    width: 100%;
    padding: 15px 32px;
@@ -34,7 +37,7 @@ const Header = styled.div`
 
    & > div:first-child {
       position: absolute;
-      top: -30px;
+      top: -85px;
    }
 `
 
@@ -78,19 +81,16 @@ const Dot = styled.div`
 
 const DrawerHeader: React.FC<Props> = ({
    scale,
-   color,
-   pfp,
    username,
    views,
    postDate,
    message,
    posts,
    isPost,
+   avatar,
 }) => (
    <Header className="header">
-      <ProfileIcon scale={scale} color={color}>
-         {pfp}
-      </ProfileIcon>
+      <Avatar scale={scale} avatar={avatar} />
       <Username>{username}</Username>
       <ViewsContainer>
          <Views>{`${formatNumber(views)} views`} </Views>

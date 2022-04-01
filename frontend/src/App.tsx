@@ -20,6 +20,7 @@ const App: React.FC = () => {
    Keyboard.addListener('keyboardWillShow', ({ keyboardHeight }) => {
       requestAnimationFrame(() => {
          document.body.style.transform = `translateY(-${keyboardHeight}px)`
+         document.getElementsByClassName('drawer').style.bottom = '0'
          document.activeElement.scrollIntoViewIfNeeded(true)
       })
    })
@@ -32,10 +33,10 @@ const App: React.FC = () => {
 
    Keyboard.setAccessoryBarVisible({ isVisible: false })
    return (
-     <BrowserRouter>
-        <GlobalStyle />
-        <AppRoutes />
-     </BrowserRouter>
+      <BrowserRouter>
+         <GlobalStyle />
+         <AppRoutes />
+      </BrowserRouter>
    )
 }
 
