@@ -37,6 +37,7 @@ const Auth: FC = () => {
       await setPersistence(firebaseAuth, { type: 'LOCAL' })
       navigate(auth.profileCreator, { state: { uid: idToken } })
     } catch (err: any) {
+      // eslint-disable-next-line no-alert
       alert(err.message)
     }
   }
