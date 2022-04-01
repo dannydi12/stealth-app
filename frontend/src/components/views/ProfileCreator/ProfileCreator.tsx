@@ -1,16 +1,18 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import generate from 'project-name-generator'
 import Confetti from 'react-confetti'
 import { useNavigate } from 'react-router-dom'
 import { StyledProfileCreator } from '.'
 import { mailman } from '../../../utils/scripts/mailman'
+import { userStore } from '../../../utils/userContext'
 import { home } from '../../routes'
 import { Avatar } from '../../shared'
 
 type AvatarType = { emoji: string; color: string }
 
 const ProfileCreator: FC = () => {
+  const { refresh } = useContext(userStore)
   const navigate = useNavigate()
   const emojis = ['✌', '😂', '😝', '😁', '😱', '👉', '🙌', '🍻', '🔥', '🌈', '☀', '🎈', '🌹', '💄', '🎀', '⚽', '🎾', '🏁', '😡', '👿', '🐻', '🐶', '🐬', '🐟', '🍀', '👀', '🚗', '🍎', '💝', '💙', '👌', '❤', '😍', '😉', '😓', '😳', '💪', '💩', '🍸', '🔑', '💖', '🌟', '🎉', '🌺', '🎶', '👠', '🏈', '⚾', '🏆', '👽', '💀', '🐵', '🐮', '🐩', '🐎', '💣', '👃', '👂', '🍓', '💘', '💜', '👊', '💋', '😘', '😜', '😵', '🙏', '👋', '🚽', '💃', '💎', '🚀', '🌙', '🎁', '⛄', '🌊', '⛵', '🏀', '🎱', '💰', '👶', '👸', '🐰', '🐷', '🐍', '🐫', '🔫', '👄', '🚲', '🍉', '🍌', '💚']
   const colors = ['fee2e2', 'ffedd5', 'fef3c7', 'fef9c3', 'ecfccb', 'dcfce7', 'd1fae5', 'ccfbf1', 'cffafe', 'e0f2fe', 'dbeafe', 'e0e7ff', 'ede9fe', 'f3e8ff', 'fae8ff', 'fce7f3', 'ffe4e6']
@@ -36,6 +38,7 @@ const ProfileCreator: FC = () => {
       }
   
       await mailman('signup', 'POST', data)
+      await refresh()
     } catch (err) {
       console.log(err)
     } finally {
