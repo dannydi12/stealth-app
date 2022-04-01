@@ -57,7 +57,6 @@ const Map: React.FC = () => {
       const res = await mailman('drops', 'GET', undefined, undefined, {
          currentCoordinates: [longitude, latitude],
       })
-      alert(JSON.stringify(res))
       setDrops(res)
    }
 

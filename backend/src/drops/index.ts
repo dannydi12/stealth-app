@@ -28,6 +28,25 @@ dropRouter.route('/')
           spherical: true,
         },
       },
+      {
+        $lookup: {
+          from: 'users',
+          as: 'author',
+          let: { authorId: '$author' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ['$_id', '$$authorId'] },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+      { $unwind: '$author' },
     ]);
 
     // const drops = await Drop.find({
