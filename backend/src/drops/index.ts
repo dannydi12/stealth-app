@@ -42,7 +42,7 @@ dropRouter.route('/')
 dropRouter.route('/:id')
   .get(onlyAuthorized, async (req, res) => {
     const { id } = req.params;
-    const drop = await Drop.findById(id);
+    const drop = await Drop.findById(id).populate('comments');
 
     res.json(drop);
   });
