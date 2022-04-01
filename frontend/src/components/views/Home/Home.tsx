@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Map } from '../../Map'
 import { auth } from '../../routes'
+import { Map } from '../Map'
 
 const Container = styled.div`
    display: flex;
@@ -17,11 +17,11 @@ const Container = styled.div`
 `
 
 const Home: React.FC = () => (
-  <Container>
-    sup fuckers 
-    <Map />
-    <Link to={auth.auth}>To Auth</Link> 
-  </Container>
+   <Container>
+      sup fuckers
+      <Map />
+      <Link to={auth.auth}>To Auth</Link>
+   </Container>
 )
 
 export default Home
