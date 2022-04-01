@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { SignInWithApple, SignInWithAppleOptions } from '@capacitor-community/apple-sign-in'
 import sha256 from 'crypto-js/sha256'
-import { getAuth, signInWithCredential, OAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithCredential, OAuthProvider, setPersistence } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { StyledAuth } from '.'
@@ -33,10 +33,9 @@ const Auth: FC = () => {
       
       const { user } = await signInWithCredential(firebaseAuth, appleCredential)
       const idToken = await user.getIdToken()
-      console.log(idToken)
+
+      await setPersistence(firebaseAuth, { type: 'LOCAL' })
       navigate(auth.profileCreator, { state: { uid: idToken } })
-      
-      window.localStorage.setItem('user-id', idToken)
     } catch (err: any) {
       alert(err.message)
     }
