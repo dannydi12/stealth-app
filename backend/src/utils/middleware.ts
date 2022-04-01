@@ -1,5 +1,5 @@
 import { auth } from './firebase'
-import { User } from './models/User'
+import { User } from '../models/User'
 
 export const getToken = async (req, res, next) => {
   if (!req.headers.authorization) {
