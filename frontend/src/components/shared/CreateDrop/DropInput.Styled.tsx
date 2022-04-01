@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledDropInput = styled.div`
+const StyledDropInput = styled.form`
    padding: 0px 20px 90px 20px;
 
    .user-container {

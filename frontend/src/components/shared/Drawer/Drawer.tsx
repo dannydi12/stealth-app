@@ -17,7 +17,7 @@ type Props = {
 const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    const [views, setViews] = useState(5000)
    const [scale, setScale] = useState(1)
-   const [drop, setDrop] = useState<Drop| null>(null)
+   const [drop, setDrop] = useState<Drop | null>(null)
 
    const getDrop = async () => {
       const dropData = await mailman(`drops/${id}`, 'GET')
@@ -26,7 +26,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
 
    const handleSubmit = async (e: any, data: string) => {
       e.preventDefault()
-      await mailman('drops', 'POST', { message: data, type: 'message', drop: id })
+      await mailman('comments', 'POST', { message: data, type: 'message', drop: id })
       console.log(data)
    }
 
@@ -38,7 +38,10 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
       <BottomSheet close={handleClose} isOpen={show} focus={false}>
          <DrawerHeader
             scale={scale}
-            avatar={{ emoji: drop?.author?.avatar.pfp || '', color: drop?.author?.avatar.color || '' }}
+            avatar={{
+               emoji: drop?.author?.avatar.pfp || '',
+               color: drop?.author?.avatar.color || '',
+            }}
             username={drop?.author?.username || ''}
             views={views}
             postDate={new Date(drop?.createdAt || '')}
@@ -49,7 +52,10 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
          <Body>
             {drop?.comments.map((mes) => (
                <Message
-                  avatar={{ emoji: isPost ? mes.author?.avatar.pfp || '' : '📍', color: mes.author?.avatar.color || '' }}
+                  avatar={{
+                     emoji: isPost ? mes.author?.avatar.pfp || '' : '📍',
+                     color: mes.author?.avatar.color || '',
+                  }}
                   date={new Date(mes.createdAt)}
                   username={mes.author?.username || ''}
                >
