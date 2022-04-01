@@ -65,6 +65,21 @@ a {
     padding-top: calc(0px);
   }
 
+  .backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #00000080;
+    opacity: 1;
+    transition: 0.2s;
+
+    &.no-show {
+      opacity: 0;
+    }
+}
+
   
 
   :root {

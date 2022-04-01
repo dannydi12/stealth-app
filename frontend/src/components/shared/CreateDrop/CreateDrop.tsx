@@ -15,7 +15,7 @@ const CreateDrop: FC = () => {
          </BottomSheet>
 
          <div className="button-container">
-            <Button onClick={() => setShowDropDrawer(true)} className="new-drop-button">
+            <Button onClick={() => setShowDropDrawer(!showDropDrawer)} className="new-drop-button">
                Drop
             </Button>
          </div>
