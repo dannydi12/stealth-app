@@ -1,54 +1,30 @@
-import React, { createRef, FC, ReactNode, useEffect, useState } from 'react'
-import { Capacitor } from '@capacitor/core'
-import { Keyboard } from '@capacitor/keyboard'
-import { useSpring } from 'react-spring'
+import React, { createRef, FC, ReactNode } from 'react'
 import { BottomSheet as SpringSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
-import { StyledBottomSheet } from '.'
+import { StyledBottomSheet, GlobalStyle } from '.'
+import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight'
 
 type Props = {
    isOpen?: boolean
+   children?: ReactNode
+   close: () => void
 }
 
-const BottomSheet: FC<Props> = ({ isOpen, children }) => {
+const BottomSheet: FC<Props> = ({ isOpen, children, close }) => {
    const sheetRef = createRef<BottomSheetRef>()
-
-   //  useEffect(() => {
-   //     const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
-
-   //     if (!canKeyboard) {
-   //        return
-   //     }
-
-   //     Keyboard.addListener('keyboardWillShow', ({ keyboardHeight }) => {
-   //        setKeyboardH(keyboardHeight)
-   //     })
-   //     Keyboard.addListener('keyboardWillHide', () => {
-   //        setKeyboardH(0)
-   //     })
-   //  }, [])
-
-   const style = useSpring({
-      display: isOpen ? 'flex' : 'none',
-      opacity: isOpen ? 1 : 0,
-      marginBottom: isOpen ? 0 : -50,
-   })
+   const { keyboardHeight } = useKeyboardHeight()
 
    return (
-      <StyledBottomSheet style={style}>
-         {/* <SpringSheet
+      <StyledBottomSheet>
+         <GlobalStyle keyboardHeight={keyboardHeight} />
+         <SpringSheet
             open={!!isOpen}
             snapPoints={({ minHeight }) => minHeight}
             ref={sheetRef}
             className="sheet"
-            onDismiss={() => {
-               close()
-            }}
-            onSpringStart={handleDisable}
-            onSpringEnd={handleEnable}
-            style={{ bottom: keyboardH, backgroundColor: 'red' }}
-         > */}
-         {children}
-         {/* </SpringSheet> */}
+            onDismiss={() => close()}
+         >
+            {children}
+         </SpringSheet>
       </StyledBottomSheet>
    )
 }

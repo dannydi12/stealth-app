@@ -1,48 +1,24 @@
-import React, { FC } from 'react'
-import styled from 'styled-components'
+import React, { FC, useState } from 'react'
 import { StyledCreateDrop, DropInput } from '.'
 import { BottomSheet } from '..'
+import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight'
 import { Button } from '../Button'
 
-type Props = {
-   show: boolean
-   handleClose: () => void
-   handleOpen: () => void
-}
+const CreateDrop: FC = () => {
+   const { keyboardHeight } = useKeyboardHeight()
+   const [showDropDrawer, setShowDropDrawer] = useState(false)
 
-const ButtonContainer = styled.div<{ show: boolean }>`
-   padding: 0 20px calc(env(safe-area-inset-bottom) + 20px) 20px;
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   z-index: 20;
-
-   .new-drop-button {
-      height: 56px;
-      width: 100%;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 6px;
-      border: none;
-      color: black;
-   }
-`
-
-const CreateDrop: FC<Props> = ({ show, handleClose, handleOpen }) => {
-   const handleSubmit = (e) => {
-      e.preventDefault()
-   }
    return (
-      <StyledCreateDrop onSubmit={handleSubmit}>
-         <BottomSheet isOpen={show}>
+      <StyledCreateDrop keyboardHeight={keyboardHeight}>
+         <BottomSheet isOpen={showDropDrawer} close={() => setShowDropDrawer(false)}>
             <DropInput />
          </BottomSheet>
-         <ButtonContainer show={show}>
-            <Button onClick={show ? handleClose : handleOpen} className="new-drop-button">
+
+         <div className="button-container">
+            <Button onClick={() => setShowDropDrawer(true)} className="new-drop-button">
                Drop
             </Button>
-         </ButtonContainer>
+         </div>
       </StyledCreateDrop>
    )
 }

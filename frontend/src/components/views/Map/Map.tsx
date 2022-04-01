@@ -3,7 +3,7 @@ import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
-import { StyledMap, MarkerButton, MapOverlay, Footer } from './Map.Styled'
+import { StyledMap, MarkerButton, MapOverlay } from './Map.Styled'
 
 const Map: React.FC = () => {
    const [latitude, setLatitude] = useState(44.648766)
@@ -21,9 +21,20 @@ const Map: React.FC = () => {
       e.preventDefault()
    }
 
-   useEffect(() => {
+   const loadInitialPosition = async () => {
       Geolocation.requestPermissions()
-      Geolocation.watchPosition(
+      const pos = await Geolocation.getCurrentPosition()
+      const lat = pos?.coords.latitude || 0
+      const long = pos?.coords.longitude || 0
+
+      setLatitude(lat)
+      setLongitude(long)
+   }
+
+   const listenForPosition = async () => {
+      Geolocation.requestPermissions()
+
+      await Geolocation.watchPosition(
          {
             enableHighAccuracy: true,
          },
@@ -35,6 +46,10 @@ const Map: React.FC = () => {
             setLongitude(long)
          },
       )
+   }
+
+   useEffect(() => {
+      loadInitialPosition()
    }, [])
 
    return (
@@ -82,13 +97,7 @@ const Map: React.FC = () => {
             ))}
          </MapBox>
          <Drawer id={id} show={show} handleClose={() => setShow(false)} />
-         {!show && (
-            <CreateDrop
-               show={showDrop}
-               handleClose={() => setShowDrop(false)}
-               handleOpen={() => setShowDrop(true)}
-            />
-         )}
+         {!show && <CreateDrop />}
       </StyledMap>
    )
 }

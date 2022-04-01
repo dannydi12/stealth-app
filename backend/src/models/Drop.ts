@@ -1,5 +1,5 @@
 import { Schema, model, Document } from 'mongoose'
-import { CommentType } from './Comment';
+import { CommentSchema, CommentType } from './Comment';
 import { UserType } from './User';
 
 export interface DropType extends Document {
@@ -15,14 +15,14 @@ export interface DropType extends Document {
 
 export const DropSchema = new Schema<DropType>(
   {
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: String, ref: 'User', required: true },
     message: String,
     type: { type: String, required: true },
     location: {
       type: { type: String, required: true },
       coordinates: { type: [Number], required: true },
     },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    comments: [{ type: CommentSchema, ref: 'Comment' }],
   },
   { timestamps: true },
 )

@@ -1,20 +1,21 @@
-import { animated } from 'react-spring'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
-const StyledBottomSheet = styled(animated.div)`
-   display: flex;
-   align-items: center;
-   flex-direction: column;
+type GlobalProps = {
+   keyboardHeight: number
+}
 
-   height: 50%;
+export const GlobalStyle = createGlobalStyle<GlobalProps>`
+  .sheet [data-rsbs-overlay] {
+    margin-bottom: ${({ keyboardHeight }) => keyboardHeight}px;
+    transition: margin-bottom 0.25s;
+  }
+`
 
-   width: 100%;
-
-   background-color: #1c1c1e;
-   position: absolute;
-   z-index: 2;
-
-   bottom: 0;
+const StyledBottomSheet = styled.div`
+   height: 50vh;
+   body {
+      display: none;
+   }
 `
 
 export default StyledBottomSheet

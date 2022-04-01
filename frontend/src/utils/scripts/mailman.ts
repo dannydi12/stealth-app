@@ -1,6 +1,6 @@
 // Custom fetch script
 
-export const mailman = async (endpoint: string, method: string, body?: any) => {
+export const mailman = async (endpoint: string, method: string, body?: any, auth?: string) => {
   const PORT = 8000
   const userId = window.localStorage.getItem('user-id')
   
@@ -9,7 +9,7 @@ export const mailman = async (endpoint: string, method: string, body?: any) => {
     headers: { 
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${userId}`,
+      Authorization: auth || `Bearer ${userId}`,
     },
     body,
   }

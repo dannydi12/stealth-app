@@ -1,14 +1,18 @@
 import styled from 'styled-components'
 
-const StyledCreateDrop = styled.form`
+type StyledProps = {
+   keyboardHeight: number
+}
+
+const StyledCreateDrop = styled.div<StyledProps>`
    .button-container {
       padding: 0 20px calc(env(safe-area-inset-bottom) + 20px) 20px;
       position: fixed;
-      bottom: 0;
+      transition: ease-in-out 0.35s;
+      bottom: ${({ keyboardHeight }) => keyboardHeight}px;
       left: 0;
       right: 0;
       z-index: 20;
-
       .new-drop-button {
          height: 56px;
          width: 100%;
