@@ -1,46 +1,35 @@
 import styled from 'styled-components'
 
-type ContainerProps = {
-   scale: number
-   size: number
+type StyledProps = {
+  avatarColor: string;
+  size: number;
 }
 
-export const Container = styled.div<ContainerProps>`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: ${({ size }) => size}px;
-   height: ${({ size }) => size}px;
-   min-width: ${({ size }) => size}px;
-   min-height: ${({ size }) => size}px;
+const StyledAvatar = styled.div<StyledProps>`
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 
-   border: 2.5px solid white;
-   border-radius: 50%;
+  .avatar-bg {
+    height: ${({ size }) => size - 6}px;
+    width: ${({ size }) => size - 6}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: ${({ avatarColor }) => avatarColor};
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 
-   transform: scale(${({ scale }) => scale});
-   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-`
-
-type InnerContainerProps = {
-   color: string
-   size: number
-}
-
-export const InnerContainer = styled.div<InnerContainerProps>`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100%;
-   width: 100%;
-   border-radius: 50%;
-
-   background-color: ${({ color }) => color};
-   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-
-   span {
-      box-sizing: border-box;
-      margin-bottom: ${({ size }) => size * 0.09}px;
-      margin-left: ${({ size }) => size * 0.01}px;
+    .emoji {
       font-size: ${({ size }) => size * 0.65}px;
-   }
+    }
+  }
+  
 `
+
+export default StyledAvatar

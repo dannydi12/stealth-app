@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Avatar } from '../Avatar'
+import { ProfileIcon } from '../ProfileIcon'
 
 const Container = styled.form`
    display: flex;
@@ -61,7 +61,9 @@ const PostMessage: React.FC<Props> = ({ children, onSubmit }) => {
 
    return (
       <Container onSubmit={handleSubmit}>
-         <Avatar size={37} avatar={{ emoji: '🏩', color: '#E6E2FE' }} />
+         <ProfileIcon color="#E6E2FE" size="37px" fontSize="21px">
+            🏩
+         </ProfileIcon>
          <Input placeholder="Write Comments" value={message} onChange={handleChange} />
          <Button>Drop</Button>
       </Container>

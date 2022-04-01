@@ -35,7 +35,6 @@ const StyledAuth = styled.div`
       font-size: 1rem;
       font-weight: 600;
       border-radius: 6px;
-      border: none;
       color: black;
     }
   }

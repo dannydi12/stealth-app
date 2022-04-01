@@ -3,7 +3,6 @@ import CONFIG from '../config'
 import './mongoConnection'
 import { UserType } from './models/User'
 
-// Context
 declare global {
   namespace Express {
     interface Response {
