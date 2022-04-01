@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
@@ -7,7 +8,7 @@ import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
 import { StyledMap, MarkerButton } from './Map.Styled'
 
-const Map: React.FC = () => {
+const Map: React.FC = () => { 
    const [latitude, setLatitude] = useState(44.648766)
    const [longitude, setLongitude] = useState(-63.575237)
    const [id, setId] = useState('')
@@ -50,6 +51,7 @@ const Map: React.FC = () => {
       const res = await mailman('drops', 'GET', undefined, undefined, {
          currentCoordinates: [longitude, latitude],
       })
+      alert(JSON.stringify(res))
       setDrops(res)
    }
 
@@ -86,14 +88,14 @@ const Map: React.FC = () => {
                <div className="user-location-blip" />
             </Marker>
 
-            {drops.map((key, index) => (
-               <MarkerButton onClick={() => handleClick(key)}>
+            {drops.length > 0 && drops.map((key, index) => (
+               <MarkerButton onClick={() => handleClick(key._id)}>
                   <Marker
-                     longitude={longitude + 0.001 * index}
-                     latitude={latitude + 0.001}
-                     key={(key as any)._id}
+                     longitude={key.location.coordinates[0]}
+                     latitude={key.location.coordinates[1]}
+                     key={key._id}
                   >
-                     <Avatar avatar={{ color: 'orange', emoji: '👑' }} size={50} />
+                     <Avatar avatar={{ color: key.author?.avatar.color || '', emoji: key.author?.avatar.pfp || '' }} size={50} />
                   </Marker>
                </MarkerButton>
             ))}

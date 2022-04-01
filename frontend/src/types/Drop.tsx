@@ -2,6 +2,7 @@ import { Comment } from './Comment';
 import { User } from './User';
 
 export type Drop = {
+  _id: string
   author?: User;
   message: string
   type: 'message' | 'image' | 'audio'
