@@ -5140,6 +5140,11 @@ firebase@^9.6.10:
     "@firebase/storage-compat" "0.1.12"
     "@firebase/util" "1.5.1"
 
+fireworks@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/fireworks/-/fireworks-2.2.7.tgz#c18e2580e4a4a32c4242c8630508e9bc6ecf1188"
+  integrity sha512-14LuFlq60GvgzY/Dto1BKGfhPjOG3gILr+ud0n4Tzr9n7YShm3N44KdwalemOydJ+wKMohtIDvhpIcLtDoF/hg==
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"

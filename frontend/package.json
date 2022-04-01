@@ -23,6 +23,7 @@
       "crypto-js": "^4.1.1",
       "dotenv-cli": "^5.1.0",
       "firebase": "^9.6.10",
+      "fireworks": "^2.2.7",
       "mapbox-gl": "^2.7.1",
       "moment": "^2.29.1",
       "prettier": "^2.6.1",

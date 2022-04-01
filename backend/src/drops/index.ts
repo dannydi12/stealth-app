@@ -5,35 +5,44 @@ import { Comment } from '../models/Comment';
 
 const dropRouter = express.Router();
 
+// get all
 dropRouter.route('/')
   .get(onlyAuthorized, async (req, res) => {
     const { currentCoordinates } = req.query;
+
+    if (!currentCoordinates) {
+      res.status(201).json([])
+      return
+    }
+
     const goodArray = (currentCoordinates as any)?.map((corr: any) => parseInt(corr, 10))
     console.log(goodArray, 'good')
-    // const drops = await Drop.aggregate([
-    //   {
-    //     $geoNear: {
-    //       near: { type: 'Point', coordinates: goodArray as any },
-    //       distanceField: 'dist.calculated',
-    //       // maxDistance: 1000,
-    //       // query: { category: 'Parks' },
-    //       includeLocs: 'dist.location',
-    //       spherical: true,
-    //     },
-    //   },
-    // ]);
-
-    const drops = await Drop.find({
-      location: {
-        $nearSphere: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [-122.5, 37.1],
-          },
-          $maxDistance: 500,
+    const drops = await Drop.aggregate([
+      {
+        $geoNear: {
+          near: { type: 'Point', coordinates: goodArray as any },
+          distanceField: 'dist.calculated',
+          // maxDistance: 1000,
+          // query: { category: 'Parks' },
+          includeLocs: 'dist.location',
+          spherical: true,
         },
       },
-    })
+    ]);
+
+    // const drops = await Drop.find({
+    //   location: {
+    //     $nearSphere: {
+    //       $geometry: {
+    //         type: 'Point',
+    //         coordinates: goodArray,
+    //       },
+    //       $maxDistance: 10000,
+    //     },
+    //   },
+    // })
+
+    console.log(drops)
 
     res.json(drops);
   })
@@ -53,6 +62,7 @@ dropRouter.route('/')
     res.status(201).json(drop);
   });
 
+// get specific drop by id
 dropRouter.route('/:id')
   .get(onlyAuthorized, async (req, res) => {
     const { id } = req.params;

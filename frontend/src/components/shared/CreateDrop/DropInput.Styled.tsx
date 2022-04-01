@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledDropInput = styled.div`
+const StyledDropInput = styled.form`
    padding: 0px 20px 90px 20px;
 
    .user-container {
@@ -32,7 +32,6 @@ const StyledDropInput = styled.div`
       border-radius: 6px;
       background-color: #18181b;
       border: 1px solid rgba(0, 0, 0, 0.2);
-      text-align: center;
       color: white;
       padding: 20px;
       font-size: 24px;

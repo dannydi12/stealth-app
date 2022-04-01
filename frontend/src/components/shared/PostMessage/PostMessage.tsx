@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
+import { userStore } from '../../../utils/userContext'
 import { Avatar } from '../Avatar'
 
 const Container = styled.form`
@@ -49,6 +50,7 @@ type Props = {
 
 const PostMessage: React.FC<Props> = ({ children, onSubmit }) => {
    const [message, setMessage] = useState('')
+   const { user } = useContext(userStore)
 
    const handleChange = (e) => {
       if (e.target.value.length < 250) setMessage(e.target.value)
@@ -61,9 +63,11 @@ const PostMessage: React.FC<Props> = ({ children, onSubmit }) => {
 
    return (
       <Container onSubmit={handleSubmit}>
-         <Avatar size={37} avatar={{ emoji: '🏩', color: '#E6E2FE' }} />
-         <Input placeholder="Write Comments" value={message} onChange={handleChange} />
-         <Button>Drop</Button>
+        {user && (
+          <Avatar size={37} avatar={{ emoji: user?.avatar.pfp, color: user?.avatar.color }} />
+        )}
+        <Input placeholder="Write Comments" value={message} onChange={handleChange} />
+        <Button>Drop</Button>
       </Container>
    )
 }
