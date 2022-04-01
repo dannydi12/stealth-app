@@ -28,7 +28,7 @@ const Splash: FC = () => {
   useEffect(() => {
     timeout.current = setTimeout(() => {
       setAllowedToRedirect(true)
-    }, 4000)
+    }, 1000)
 
     return () => {
       clearTimeout(timeout.current)

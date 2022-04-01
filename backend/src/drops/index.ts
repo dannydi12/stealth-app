@@ -14,7 +14,7 @@ dropRouter.route('/')
         $geoNear: {
           near: { type: 'Point', coordinates: currentCoordinates as any },
           distanceField: 'dist.calculated',
-          maxDistance: 1000,
+          // maxDistance: 1000,
           // query: { category: 'Parks' },
           includeLocs: 'dist.location',
           spherical: true,
