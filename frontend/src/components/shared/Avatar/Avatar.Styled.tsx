@@ -37,10 +37,5 @@ export const InnerContainer = styled.div<InnerContainerProps>`
    background-color: ${({ color }) => color};
    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 
-   span {
-      box-sizing: border-box;
-      margin-bottom: ${({ size }) => size * 0.09}px;
-      margin-left: ${({ size }) => size * 0.01}px;
-      font-size: ${({ size }) => size * 0.65}px;
-   }
+   font-size: ${({ size }) => size * 0.65}px;
 `
