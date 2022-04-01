@@ -1,21 +1,20 @@
-import React from 'react'
-import { Container, InnerContainer } from './Avatar.Styled'
+import React, { FC } from 'react'
+import { StyledAvatar } from '.'
 
 type Props = {
-   avatar: {
-      emoji: string
-      color: string
-   }
-   size?: number
-   scale?: number
+  avatar: {
+    emoji: string;
+    color: string;
+  };
+  size?: number;
 }
 
-const Avatar: React.FC<Props> = ({ avatar, scale = 1, size = 80 }) => (
-   <Container scale={scale} size={size} className="avatar">
-      <InnerContainer size={size} color={avatar.color}>
-         <span>{avatar.emoji}</span>
-      </InnerContainer>
-   </Container>
-)
+const Avatar: FC<Props> = ({ avatar, size = 62 }) => (
+    <StyledAvatar className="avatar" avatarColor={avatar.color} size={size}>
+      <div className="avatar-bg">
+        <span className="emoji">{avatar.emoji}</span>
+      </div>
+    </StyledAvatar>
+  )
 
 export default Avatar

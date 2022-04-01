@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { auth, home } from '../routes'
-import { Auth, Map } from '../views'
-import { ProfileCreator } from '../views/ProfileCreator'
+import { Auth, Map, ProfileCreator } from '../views'
 
 const AppRoutes: FC = () => (
    <Routes>
