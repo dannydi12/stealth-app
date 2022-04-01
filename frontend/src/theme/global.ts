@@ -51,7 +51,8 @@ a {
   cursor: pointer;
 }
 
-  .sheet * {
+
+  [data-rsbs-overlay] {
     overflow: visible !important;
   }
 
