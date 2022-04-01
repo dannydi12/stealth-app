@@ -5,6 +5,7 @@ import { Comment } from '../models/Comment';
 
 const dropRouter = express.Router();
 
+// get all
 dropRouter.route('/')
   .get(onlyAuthorized, async (req, res) => {
     const { currentCoordinates } = req.query;
@@ -14,7 +15,7 @@ dropRouter.route('/')
         $geoNear: {
           near: { type: 'Point', coordinates: currentCoordinates as any },
           distanceField: 'dist.calculated',
-          maxDistance: 1000,
+          // maxDistance: 1000,
           // query: { category: 'Parks' },
           includeLocs: 'dist.location',
           spherical: true,
@@ -40,6 +41,7 @@ dropRouter.route('/')
     res.status(201).json(drop);
   });
 
+// get specific drop by id
 dropRouter.route('/:id')
   .get(onlyAuthorized, async (req, res) => {
     const { id } = req.params;

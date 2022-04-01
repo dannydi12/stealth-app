@@ -53,15 +53,6 @@ export const StyledMap = styled.div`
    }
 `
 
-export const MapOverlay = styled.div`
-   position: absolute;
-   bottom: 0;
-   background-color: rgba(0, 0, 0, 0.7);
-   width: 100%;
-   height: 100%;
-   z-index: 1;
-`
-
 export const MarkerButton = styled.div`
    display: flex;
    justify-content: center;
