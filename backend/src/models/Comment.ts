@@ -12,7 +12,7 @@ export interface CommentType extends Document {
 
 export const CommentSchema = new Schema<CommentType>(
   {
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: String, ref: 'User', required: true },
     drop: { type: Schema.Types.ObjectId, ref: 'Drop', required: true },
     message: String,
     type: { type: String, required: true },
