@@ -27,6 +27,7 @@ export const Body = styled.div`
    flex-direction: column;
    gap: 24px;
    height: 100%;
+   min-height: 428px;
    max-height: 428px;
    width: 100%;
    padding-top: 24px;
