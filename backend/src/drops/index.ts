@@ -88,7 +88,7 @@ dropRouter.route('/:id')
     const drop = await Drop.findById(id).populate('author').lean()
 
     const comments = await Comment.find({ drop: id }).populate('author')
-
+    console.log(comments)
     res.json({ ...drop, comments });
   });
 

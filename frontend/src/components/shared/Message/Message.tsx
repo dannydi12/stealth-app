@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 import { formatDate } from '../../../helper'
 import { Avatar } from '../Avatar'

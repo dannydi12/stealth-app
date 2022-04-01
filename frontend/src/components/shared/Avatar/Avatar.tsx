@@ -8,10 +8,11 @@ type Props = {
    }
    size?: number
    scale?: number
+   isDisabled?: boolean;
 }
 
-const Avatar: React.FC<Props> = ({ avatar, scale = 1, size = 80 }) => (
-   <Container scale={scale} size={size} className="avatar">
+const Avatar: React.FC<Props> = ({ avatar, scale = 1, size = 80, isDisabled }) => (
+   <Container scale={scale} size={size} isDisabled={isDisabled} className="avatar">
       <InnerContainer size={size} color={avatar.color}>
          {avatar.emoji}
       </InnerContainer>

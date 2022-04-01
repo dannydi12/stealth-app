@@ -20,6 +20,12 @@ export const Header = styled.div`
       position: absolute;
       top: -55px;
    }
+
+
+   .avatar {
+    z-index: 1;
+    pointer-events: none;
+  }
 `
 
 export const ViewsContainer = styled.div`

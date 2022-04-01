@@ -17,6 +17,7 @@ export const Container = styled(animated.div)`
    z-index: 2;
 
    bottom: 0;
+
 `
 
 export const Body = styled.div`
