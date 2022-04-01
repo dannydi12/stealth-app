@@ -43,14 +43,14 @@ export const StyledMap = styled.div`
       display: none;
    }
 
-  .user-location-blip {
-    height: 20px;
-    width: 20px;
-    background: #007AFF;
-    border-radius: 50%;
-    border: 2px solid white;
-    animation: ${blipKeyframes} infinite 2s;
-  }
+   .user-location-blip {
+      height: 20px;
+      width: 20px;
+      background: #007aff;
+      border-radius: 50%;
+      border: 2px solid white;
+      animation: ${blipKeyframes} infinite 2s;
+   }
 `
 
 export const MapOverlay = styled.div`
