@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { StyledMap } from '.'
-import { Avatar } from '../shared'
+import { Avatar } from '../../shared'
 
 const Map: React.FC = () => {
   const [latitude, setLatitude] = useState(44.648766)
@@ -10,7 +10,6 @@ const Map: React.FC = () => {
 
   useEffect(() => {
     Geolocation.requestPermissions()
-
     Geolocation.watchPosition({
       enableHighAccuracy: true,
     }, (data) => {
