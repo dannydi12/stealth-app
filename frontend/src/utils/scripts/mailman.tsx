@@ -12,7 +12,7 @@ export const mailman = async (endpoint: string, method: string, body?: any, auth
       Accept: 'application/json',
       Authorization: auth || `Bearer ${authToken}`,
     },
-    body,
+    body: JSON.stringify(body),
   }
 
   const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}`

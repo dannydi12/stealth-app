@@ -35,7 +35,7 @@ const ProfileCreator: FC = () => {
         },
       }
   
-      await mailman('signup', 'POST', JSON.stringify(data))
+      await mailman('signup', 'POST', data)
     } catch (err) {
       console.log(err)
     } finally {
