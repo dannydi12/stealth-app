@@ -1,19 +1,16 @@
 import express from 'express'
-import { auth } from '../firebase'
-import { onlyAuthorized } from '../middleware'
+import { auth } from '../utils/firebase'
 import { User } from '../models/User'
 
 const signupRouter = express.Router()
 
 signupRouter.route('/').post(async (req, res) => {
   try {
-    const {
-      username, avatar, signUpLocation,
-    } = req.body
+    const { username, avatar, signUpLocation } = req.body
 
     const token = req?.headers?.authorization?.split('Bearer ')[1] || ''
     const decodedToken = await auth.verifyIdToken(token)
-  
+
     if (!decodedToken.uid) {
       throw new Error('Auth error.')
     }
