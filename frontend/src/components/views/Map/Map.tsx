@@ -3,6 +3,7 @@ import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { StyledMap } from '.'
 import { Avatar } from '../../shared'
+import { CreateDrop } from '../../shared/CreateDrop'
 
 const Map: React.FC = () => {
   const [latitude, setLatitude] = useState(44.648766)
@@ -41,7 +42,7 @@ const Map: React.FC = () => {
         mapStyle="mapbox://styles/mapbox/dark-v10"
         mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
       >
-        <Marker longitude={longitude} latitude={latitude}>
+        <Marker longitude={longitude} latitude={latitude} style={{ zIndex: 1 }}>
           <div className="user-location-blip" />
         </Marker>
 
@@ -51,6 +52,7 @@ const Map: React.FC = () => {
           </Marker>
         ))}
       </MapBox>
+      <CreateDrop />
     </StyledMap>
    )
 }

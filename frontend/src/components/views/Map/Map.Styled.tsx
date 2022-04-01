@@ -1,4 +1,16 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const blipKeyframes = keyframes`
+  0 {
+    box-shadow: 0 0 0 0 rgba(0, 122, 255, 1);
+  }
+  50% {
+    box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 30px rgba(0, 122, 255, 0);
+  }
+`
 
 const StyledMap = styled.div`
   .mapboxgl-map, .mapboxgl-canvas-container {
@@ -33,6 +45,7 @@ const StyledMap = styled.div`
     background: #007AFF;
     border-radius: 50%;
     border: 2px solid white;
+    animation: ${blipKeyframes} infinite 2s;
   }
 `
 

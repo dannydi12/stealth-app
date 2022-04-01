@@ -1,36 +1,22 @@
 // @ts-nocheck
-import React from 'react'
+import React, { useEffect } from 'react'
 import './utils/firebase'
+import { Capacitor } from '@capacitor/core'
 import { Keyboard } from '@capacitor/keyboard'
 import { BrowserRouter } from 'react-router-dom'
-import styled from 'styled-components'
 import { AppRoutes } from './components/AppRoutes'
 import { GlobalStyle } from './theme'
 
-const Container = styled.div`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   width: 100vw;
-   height: 100vh;
-`
-
 const App: React.FC = () => {
-   Keyboard.addListener('keyboardWillShow', ({ keyboardHeight }) => {
-      requestAnimationFrame(() => {
-         document.body.style.transform = `translateY(-${keyboardHeight}px)`
-         document.activeElement.scrollIntoViewIfNeeded(true)
-      })
-   })
+  useEffect(() => {
+    const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
 
-   Keyboard.addListener('keyboardWillHide', () => {
-      requestAnimationFrame(() => {
-         document.body.style.transform = 'translateY(0px)'
-      })
-   })
+    if (canKeyboard) {
+      Keyboard.setAccessoryBarVisible({ isVisible: false })
+      Keyboard.setResizeMode({ mode: 'native' })
+    }
+  }, [])
 
-   Keyboard.setAccessoryBarVisible({ isVisible: false })
    return (
      <BrowserRouter>
         <GlobalStyle />
