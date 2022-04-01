@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
   username: string
   avatar: {
     color: string;
@@ -8,4 +8,6 @@ export interface User {
     type: string
     coordinates: number[]
   }
+  updatedAt: string
+  createdAt: string
 }

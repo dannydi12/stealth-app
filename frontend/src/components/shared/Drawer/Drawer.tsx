@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Drop } from '../../../types/Drop'
+import { mailman } from '../../../utils/scripts/mailman'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
 import DrawerHeader from './DrawerHeader'
@@ -56,51 +58,46 @@ type Props = {
 }
 
 const Drawer: React.FC<Props> = ({ id, isPost = true }) => {
-   const [pfp, setPfp] = useState('🥐')
-   const [color, setColor] = useState('#E0F2FE')
-   const [username, setUsername] = useState('@tobiasaf')
-   const [message, setMessage] = useState('I just had the best croissant and coffee. ')
+   const scale = 1
    const [views, setViews] = useState(5000)
-   const [postDate, setPostDate] = useState(new Date())
-   const [scale, setScale] = useState(1)
-   const [locationName, setLocationName] = useState('Los Angeles')
-   const [messages, setMessages] = useState([
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-   ])
-   const [posts, setPosts] = useState(31)
+   const [drop, setDrop] = useState<Drop | null>(null)
 
-   const handleSubmit = (e: any, data: string) => {
+   const getDrop = async () => {
+      const dropData = await mailman(`drops/${id}`, 'GET', {})
+      setDrop(dropData)
+   }
+
+   const handleSubmit = async (e: any, data: string) => {
       e.preventDefault()
+      await mailman('drops', 'POST', { message: data, type: 'message', drop: id })
       console.log(data)
    }
+
+   useEffect(() => {
+      getDrop()
+   }, [])
 
    return (
       <Container>
          <InnerContainer>
             <DrawerHeader
                scale={scale}
-               color={color}
-               pfp={pfp}
-               username={username}
+               color={drop?.author?.avatar.color || ''}
+               pfp={drop?.author?.avatar.pfp || ''}
+               username={drop?.author?.username || ''}
                views={views}
-               postDate={postDate}
-               message={message}
-               posts={posts}
+               postDate={new Date(drop?.createdAt || '')}
+               message={drop?.message || ''}
+               posts={drop?.comments.length || 0}
                isPost={isPost}
             />
             <Body>
-               {messages.map((mes) => (
+               {drop?.comments.map((mes) => (
                   <Message
-                     pfp={isPost ? mes.pfp : '📍'}
-                     date={mes.postDate}
-                     username={isPost ? mes.username : mes.locationName}
-                     color={mes.color}
+                     pfp={mes.author?.avatar.pfp || '📍'}
+                     date={new Date(mes.createdAt)}
+                     username={mes.author?.username || ''}
+                     color={mes.author?.avatar.color || ''}
                   >
                      {mes.message}
                   </Message>
