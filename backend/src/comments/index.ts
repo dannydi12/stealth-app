@@ -1,5 +1,5 @@
 import express from 'express';
-import { onlyAuthorized } from '../middleware';
+import { onlyAuthorized } from '../utils/middleware';
 import { Comment } from '../models/Comment';
 
 const commentRouter = express.Router();
