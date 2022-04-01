@@ -10,7 +10,11 @@ import { Button } from '../Button'
 import StyledCreateDrop from './CreateDrop.Styled'
 import DropInput from './DropInput'
 
-const CreateDrop: FC = () => {
+type Props = {
+   updateList: (any) => void;
+}
+
+const CreateDrop: FC<Props> = ({ updateList }: Props) => {
    const { keyboardHeight } = useKeyboardHeight()
    const [showDropDrawer, setShowDropDrawer] = useState(false)
    const [message, setMessage] = useState('')
@@ -41,7 +45,8 @@ const CreateDrop: FC = () => {
          type: 'message',
       }
 
-      await mailman('drops', 'POST', data)
+      const res = await mailman('drops', 'POST', data)
+      updateList(res)
       showFirework()
       setShowDropDrawer(false)
    }

@@ -16,7 +16,7 @@ dropRouter.route('/')
     }
 
     const goodArray = (currentCoordinates as any)?.map((corr: any) => parseInt(corr, 10))
-    console.log(goodArray, 'good')
+
     const drops = await Drop.aggregate([
       {
         $geoNear: {
@@ -76,9 +76,9 @@ dropRouter.route('/')
         type: 'Point',
         coordinates,
       },
-    });
+    })
 
-    res.status(201).json(drop);
+    res.status(201).json({ ...drop.toJSON(), author: res.user });
   });
 
 // get specific drop by id

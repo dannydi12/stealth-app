@@ -119,7 +119,7 @@ const Map: React.FC = () => {
             ))}
          </MapBox>
          {id && <Drawer id={id} show={show} handleClose={() => handleClose()} />}
-         {!show && <CreateDrop />}
+         {!show && <CreateDrop updateList={(newDrop: any) => setDrops([...drops, newDrop])} />}
       </StyledMap>
    )
 }
