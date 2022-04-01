@@ -20,14 +20,16 @@ export const Container = styled(animated.div)`
 `
 
 export const Body = styled.div`
+   overflow: auto !important;
    display: flex;
    align-items: center;
    flex-direction: column;
    gap: 24px;
    height: 100%;
+   max-height: 428px;
    width: 100%;
-   overflow: auto;
    padding-top: 24px;
+   position: relative;
 `
 
 export const Footer = styled.div`

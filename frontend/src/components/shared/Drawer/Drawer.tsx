@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useSpring } from 'react-spring'
+import { BottomSheet } from '../BottomSheet'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
-import { Container, Footer, Body } from './Drawer.styled'
+import { Footer, Body } from './Drawer.styled'
 import DrawerHeader from './DrawerHeader'
 
 type Props = {
@@ -25,18 +25,14 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
       { emoji, postDate, username, color, message, locationName },
       { emoji, postDate, username, color, message, locationName },
       { emoji, postDate, username, color, message, locationName },
+      { emoji, postDate, username, color: 'red', message, locationName },
       { emoji, postDate, username, color, message, locationName },
       { emoji, postDate, username, color, message, locationName },
       { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color, message, locationName },
+      { emoji, postDate, username, color: 'red', message, locationName },
+      { emoji, postDate, username, color: 'red', message, locationName },
    ])
    const [posts, setPosts] = useState(31)
-
-   const style = useSpring({
-      display: show ? 'flex' : 'none',
-      opacity: show ? 1 : 0,
-      marginBottom: show ? 0 : -50,
-   })
 
    const handleSubmit = (e: any, data: string) => {
       e.preventDefault()
@@ -44,7 +40,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    }
 
    return (
-      <Container style={style} className="drawer">
+      <BottomSheet close={handleClose} isOpen={show} focus={false}>
          <DrawerHeader
             scale={scale}
             avatar={{ emoji, color }}
@@ -71,7 +67,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
                <PostMessage onSubmit={handleSubmit} />
             </Footer>
          )}
-      </Container>
+      </BottomSheet>
    )
 }
 

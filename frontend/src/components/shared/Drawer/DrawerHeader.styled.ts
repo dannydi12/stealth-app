@@ -7,7 +7,7 @@ export const Header = styled.div`
    position: relative;
    gap: 11px;
    width: 100%;
-   padding: 15px 32px;
+   padding: 40px 32px;
 
    border-bottom: 1px solid rgba(102, 102, 110, 0.2);
    a {
@@ -18,7 +18,7 @@ export const Header = styled.div`
 
    & > div:first-child {
       position: absolute;
-      top: -85px;
+      top: -55px;
    }
 `
 

@@ -1,15 +1,15 @@
-import React, { createRef, FC, ReactNode } from 'react'
+import React, { createRef, FC } from 'react'
 import { BottomSheet as SpringSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import { StyledBottomSheet, GlobalStyle } from '.'
 import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight'
 
 type Props = {
    isOpen?: boolean
-   children?: ReactNode
    close: () => void
+   focus?: boolean
 }
 
-const BottomSheet: FC<Props> = ({ isOpen, children, close }) => {
+const BottomSheet: FC<Props> = ({ isOpen, children, close, focus = true }) => {
    const sheetRef = createRef<BottomSheetRef>()
    const { keyboardHeight } = useKeyboardHeight()
 
@@ -22,6 +22,8 @@ const BottomSheet: FC<Props> = ({ isOpen, children, close }) => {
             ref={sheetRef}
             className="sheet"
             onDismiss={() => close()}
+            initialFocusRef={focus && undefined}
+            scrollLocking={false}
          >
             {children}
          </SpringSheet>
