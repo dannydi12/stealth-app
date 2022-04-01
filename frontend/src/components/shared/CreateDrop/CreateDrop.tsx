@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Haptics, NotificationType } from '@capacitor/haptics'
 import fireworks from 'fireworks'
 import { mailman } from '../../../utils/scripts/mailman'
 import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight'
+import { userStore } from '../../../utils/userContext'
 import { BottomSheet } from '../BottomSheet'
 import { Button } from '../Button'
 import StyledCreateDrop from './CreateDrop.Styled'
@@ -13,15 +14,9 @@ const CreateDrop: FC = () => {
    const { keyboardHeight } = useKeyboardHeight()
    const [showDropDrawer, setShowDropDrawer] = useState(false)
    const [message, setMessage] = useState('')
+   const { user } = useContext(userStore)
 
    const handleChange = (e: any) => setMessage(e.target.value)
-
-   // TODO
-   // const { user } = useContext(userStore)
-
-   // useEffect(() => {
-   //   setFormState('')
-   // }, [user])
 
    const showFirework = async () => {
     fireworks({
@@ -32,20 +27,6 @@ const CreateDrop: FC = () => {
     await Haptics.notification({
       type: NotificationType.Success,
     })
-   }
-
-   const user = {
-      username: 'Paupau',
-      avatar: {
-         color: 'pink',
-         pfp: '🍌',
-      },
-      signUpLocation: {
-         type: '',
-         coordinates: [30, 30],
-      },
-      updatedAt: `${new Date()}`,
-      createdAt: `${new Date()}`,
    }
 
    const handleSubmitDrop = async () => {

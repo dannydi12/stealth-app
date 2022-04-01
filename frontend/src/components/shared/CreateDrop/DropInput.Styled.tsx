@@ -32,7 +32,6 @@ const StyledDropInput = styled.form`
       border-radius: 6px;
       background-color: #18181b;
       border: 1px solid rgba(0, 0, 0, 0.2);
-      text-align: center;
       color: white;
       padding: 20px;
       font-size: 24px;
