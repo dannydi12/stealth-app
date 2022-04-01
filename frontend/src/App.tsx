@@ -6,6 +6,7 @@ import { Keyboard } from '@capacitor/keyboard'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRoutes } from './components/AppRoutes'
 import { GlobalStyle } from './theme'
+import { UserPovider } from './utils/userContext'
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -20,7 +21,9 @@ const App: React.FC = () => {
    return (
      <BrowserRouter>
         <GlobalStyle />
-        <AppRoutes />
+        <UserPovider>
+          <AppRoutes />
+        </UserPovider>
      </BrowserRouter>
    )
 }
