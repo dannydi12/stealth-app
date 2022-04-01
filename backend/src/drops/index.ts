@@ -1,6 +1,7 @@
 import express from 'express';
-import { onlyAuthorized } from '../middleware';
+import { onlyAuthorized } from '../utils/middleware';
 import { Drop } from '../models/Drop';
+import { Comment } from '../models/Comment';
 
 const dropRouter = express.Router();
 
@@ -13,7 +14,7 @@ dropRouter.route('/')
         $geoNear: {
           near: { type: 'Point', coordinates: currentCoordinates },
           distanceField: 'dist.calculated',
-          maxDistance: 2,
+          maxDistance: 1000,
           // query: { category: 'Parks' },
           includeLocs: 'dist.location',
           spherical: true,
@@ -42,9 +43,11 @@ dropRouter.route('/')
 dropRouter.route('/:id')
   .get(onlyAuthorized, async (req, res) => {
     const { id } = req.params;
-    const drop = await Drop.findById(id);
+    const drop = await Drop.findById(id).populate('author').lean()
 
-    res.json(drop);
+    const comments = await Comment.find({ drop: id }).populate('author')
+
+    res.json({ ...drop, comments });
   });
 
 export default dropRouter;

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { StyledCreateDrop, DropInput } from '.'
 import { BottomSheet } from '..'
-import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight'
+import { useKeyboardHeight } from '../../../utils/scripts'
 import { Button } from '../Button'
 
 const CreateDrop: FC = () => {
