@@ -1,19 +1,29 @@
-import React, { FC } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import { StyledDropInput } from '.'
+import { User } from '../../../types/User'
+import { userStore } from '../../../utils/userContext'
 import { Avatar } from '../Avatar'
 
-const DropInput: FC = () => {
-   const nope = 'NOPE'
+type Props = {
+  user: User | null
+}
 
-   return (
-      <StyledDropInput>
-         <div className="user-container">
-            <Avatar avatar={{ emoji: '🍌', color: '#fef3c7' }} size={75} />
-            <span className="user-handle">@jamelhammoud</span>
-         </div>
-         <textarea className="drop-text-area" placeholder="Drop something interesting" />
-      </StyledDropInput>
-   )
+const DropInput: FC<Props> = ({ user }) => {
+  const nope = 'NOPE'
+
+  return (
+    <StyledDropInput>
+      {user && (
+        <>
+        <div className="user-container">
+          <Avatar avatar={{ emoji: user.avatar.pfp, color: user.avatar.color }} size={75} />
+          <span className="user-handle">{`@${user.username}`}</span>
+        </div>
+        <textarea className="drop-text-area" placeholder="Drop something interesting" />
+        </>
+      )}
+    </StyledDropInput>
+  )
 }
 
 export default DropInput
