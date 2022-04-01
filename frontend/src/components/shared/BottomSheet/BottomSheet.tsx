@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { createRef, FC } from 'react'
 import { BottomSheet as SpringSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import { StyledBottomSheet, GlobalStyle } from '.'
@@ -24,6 +27,8 @@ const BottomSheet: FC<Props> = ({ isOpen, children, close, focus = true }) => {
             onDismiss={() => close()}
             initialFocusRef={focus && undefined}
             scrollLocking={false}
+            blocking={false}
+            sibling={<div className={`backdrop ${isOpen ? 'show' : 'no-show'}`} onClick={() => close()} />}
          >
             {children}
          </SpringSheet>

@@ -6,7 +6,7 @@ export const mailman = async (
   ) => {
   const PORT = 8000
 
-  const authToken = getAuth().currentUser?.getIdToken()
+  const authToken = await getAuth().currentUser?.getIdToken()
   
   const fetchConfig = {
     method,
@@ -23,8 +23,6 @@ export const mailman = async (
   const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
   
   try {
-    console.log(url, endpoint, method, body)
-
     const response = await fetch(url, fetchConfig)
     return await response.json()
   } catch (err) {

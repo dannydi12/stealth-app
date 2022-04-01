@@ -32,6 +32,8 @@ const Auth: FC = () => {
       })
       
       await signInWithCredential(firebaseAuth, appleCredential)
+
+      // await setPersistence(firebaseAuth, { type: 'LOCAL' })
       navigate(auth.profileCreator)
     } catch (err: any) {
       // eslint-disable-next-line no-alert
