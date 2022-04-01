@@ -23,8 +23,16 @@ const StyledMap = styled.div`
     color: white;
   }
 
-  .mapboxgl-ctrl-top-right {
-    top: 50px;
+  .mapboxgl-ctrl-logo {
+    display: none;
+  }
+
+  .user-location-blip {
+    height: 20px;
+    width: 20px;
+    background: #007AFF;
+    border-radius: 50%;
+    border: 2px solid white;
   }
 `
 
