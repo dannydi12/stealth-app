@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import styled from 'styled-components'
+import { BottomSheet } from '../BottomSheet'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
 import DrawerHeader from './DrawerHeader'
@@ -48,9 +49,10 @@ type Props = {
    id: string
    isPost?: boolean
    show: boolean
+   handleClose: () => void
 }
 
-const Drawer: React.FC<Props> = ({ id, isPost = true, show }) => {
+const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    const [emoji, setEmoji] = useState('🥐')
    const [color, setColor] = useState('#E0F2FE')
    const [username, setUsername] = useState('@tobiasaf')
@@ -73,7 +75,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show }) => {
    const style = useSpring({
       display: show ? 'flex' : 'none',
       opacity: show ? 1 : 0,
-      translateY: show ? 0 : 100,
+      marginBottom: show ? 0 : -50,
    })
 
    const handleSubmit = (e: any, data: string) => {

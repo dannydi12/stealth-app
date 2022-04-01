@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
       if (canKeyboard) {
          Keyboard.setAccessoryBarVisible({ isVisible: false })
-         Keyboard.setResizeMode({ mode: 'native' })
+         Keyboard.setResizeMode({ mode: 'body' })
       }
    }, [])
 

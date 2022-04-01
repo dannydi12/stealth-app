@@ -3,26 +3,25 @@ import { BottomSheet as SpringSheet, BottomSheetRef } from 'react-spring-bottom-
 import { StyledBottomSheet } from '.'
 
 type Props = {
-  isOpen?: boolean;
-  children?: ReactNode;
-  close: () => void;
+   isOpen?: boolean
+   close: () => void
 }
 
 const BottomSheet: FC<Props> = ({ isOpen, children, close }) => {
-  const sheetRef = createRef<BottomSheetRef>()
+   const sheetRef = createRef<BottomSheetRef>()
 
-  return (
-    <StyledBottomSheet>
-      <SpringSheet 
-        open={!!isOpen} 
-        snapPoints={({ minHeight }) => minHeight} 
-        ref={sheetRef} 
-        className="sheet"
-        onDismiss={() => close()}
-      >
-        {children}
-      </SpringSheet>
-    </StyledBottomSheet>
-  )
+   return (
+      <StyledBottomSheet>
+         <SpringSheet
+            open={!!isOpen}
+            snapPoints={({ minHeight }) => minHeight}
+            ref={sheetRef}
+            className="sheet"
+            onDismiss={() => close()}
+         >
+            {children}
+         </SpringSheet>
+      </StyledBottomSheet>
+   )
 }
 export default BottomSheet

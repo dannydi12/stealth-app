@@ -76,8 +76,8 @@ const Map: React.FC = () => {
                </MarkerButton>
             ))}
          </MapBox>
-         <Drawer id={id} show={show} />
-         <CreateDrop />
+         <Drawer id={id} show={show} handleClose={() => setShow(false)} />
+         {!show && <CreateDrop />}
       </StyledMap>
    )
 }
