@@ -31,11 +31,10 @@ const Auth: FC = () => {
         rawNonce: nonce,
       })
       
-      const { user } = await signInWithCredential(firebaseAuth, appleCredential)
-      const idToken = await user.getIdToken()
+      await signInWithCredential(firebaseAuth, appleCredential)
 
       await setPersistence(firebaseAuth, { type: 'LOCAL' })
-      navigate(auth.profileCreator, { state: { uid: idToken } })
+      navigate(auth.profileCreator)
     } catch (err: any) {
       // eslint-disable-next-line no-alert
       alert(err.message)
