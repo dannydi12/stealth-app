@@ -1,64 +1,68 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
-import mapboxgl from 'mapbox-gl'
+import { Map as MapBox, useMap, GeolocateControl } from 'react-map-gl'
 import { StyledMap } from '.'
 
-// TODO put this in .env file
-mapboxgl.accessToken = 'pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg'
-
 const Map: React.FC = () => {
-   const mapContainer = useRef<any>(null)
-   const map = useRef<mapboxgl.Map | null>(null)
-   const [watchId, setWatchId] = useState('')
-   const [lat, setLat] = useState(34.19965158005756)
-   const [lng, setLng] = useState(-118.32767444234798)
-   const [zoom, setZoom] = useState(16)
-   const [bearing, setBearing] = useState(0)
+  const { current: map } = useMap()
+  const [latitude, setLatitude] = useState(44.648766)
+  const [longitude, setLongitude] = useState(-63.575237)
+  const [heading, setHeading] = useState(0)
 
-   const watchMe = async () => {
-    const watch = await Geolocation.watchPosition({
-      enableHighAccuracy: true,
-    }, (data) => {
-      setLat(data?.coords.latitude || 0)
-      setLng(data?.coords.longitude || 0)
-      setBearing(data?.coords.heading || 0)
-    })
-
-    setWatchId(watch)
-   }
-
-   useEffect(() => {
-      const mabObject = map.current
-      if (!mabObject) {
-        return
-      }
-
-      mabObject.panTo([lng, lat])
-      mabObject.setBearing(bearing)
-   }, [lat, lng, bearing])
-
-   useEffect(() => {
-      if (map.current) return; // initialize map only once
-      map.current = new mapboxgl.Map({
-         container: mapContainer.current,
-         style: 'mapbox://styles/mapbox/dark-v10',
-         center: [lng, lat],
-         dragPan: false,
-         zoom,
-      })
+  const geolocateControlRef = useCallback((ref) => {
+    if (ref) {
+      ref.trigger()
+    }
   }, [])
 
-   useEffect(() => {
-      watchMe()
-      return () => {
-        Geolocation.clearWatch({ id: watchId })
-      }
-    }, [])
-   
+  const getPosition = () => {
+    /*
+    map.track
+    mapView.location.options.puckType = .puck2D()
+    */
+  }
+
+  useEffect(() => {
+    getPosition()
+    /*
+    Geolocation.requestPermissions()
+
+    Geolocation.watchPosition({
+      enableHighAccuracy: true,
+    }, (data) => {
+      setLatitude(data?.coords.latitude || 0)
+      setLongitude(data?.coords.longitude || 0)
+      setHeading(data?.coords.heading || 0)
+    })
+    */
+  }, [])
+
    return (
-      <StyledMap>
-        <div ref={mapContainer} className="map-container" />
-      </StyledMap>
+    <StyledMap>
+      <MapBox 
+        initialViewState={{
+          zoom: 20,
+        }}
+        pitch={50}
+        mapStyle="mapbox://styles/mapbox/dark-v10"
+        mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
+      >
+        <GeolocateControl 
+          showAccuracyCircle={true} 
+          trackUserLocation={true} 
+          ref={geolocateControlRef} 
+        />
+      </MapBox>
+      <div className="terminal">
+        <pre>
+          <code>
+            LONG: {longitude}<br />
+            LAT: {latitude}<br />
+            HEADING: {heading}
+          </code>
+        </pre>
+      </div>
+    </StyledMap>
    )
 }
 

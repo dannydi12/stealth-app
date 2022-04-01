@@ -32,12 +32,10 @@ const App: React.FC = () => {
 
    Keyboard.setAccessoryBarVisible({ isVisible: false })
    return (
-      <Container>
-         <BrowserRouter>
-            <GlobalStyle />
-            <AppRoutes />
-         </BrowserRouter>
-      </Container>
+     <BrowserRouter>
+        <GlobalStyle />
+        <AppRoutes />
+     </BrowserRouter>
    )
 }
 

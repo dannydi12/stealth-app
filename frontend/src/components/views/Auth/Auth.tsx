@@ -30,11 +30,13 @@ const Auth: FC = () => {
         idToken: response.identityToken,
         rawNonce: nonce,
       })
-  
-      const { user } = await signInWithCredential(firebaseAuth, appleCredential)
-      navigate(auth.profileCreator, { state: { uid: user.uid } })
       
-      window.localStorage.setItem('user-id', user.uid)
+      const { user } = await signInWithCredential(firebaseAuth, appleCredential)
+      const idToken = await user.getIdToken()
+      console.log(idToken)
+      navigate(auth.profileCreator, { state: { uid: idToken } })
+      
+      window.localStorage.setItem('user-id', idToken)
     } catch (err: any) {
       alert(err.message)
     }
