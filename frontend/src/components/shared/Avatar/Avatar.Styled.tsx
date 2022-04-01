@@ -3,6 +3,7 @@ import styled from 'styled-components'
 type ContainerProps = {
    scale: number
    size: number
+   isDisabled?: boolean
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -13,6 +14,7 @@ export const Container = styled.div<ContainerProps>`
    height: ${({ size }) => size}px;
    min-width: ${({ size }) => size}px;
    min-height: ${({ size }) => size}px;
+  ${({ isDisabled }) => isDisabled && 'filter: grayscale(1);'}
 
    border: 2.5px solid white;
    border-radius: 50%;
@@ -34,7 +36,7 @@ export const InnerContainer = styled.div<InnerContainerProps>`
    width: 100%;
    border-radius: 50%;
 
-   background-color: ${({ color }) => color};
+   background-color: ${({ color }) => color || '#27272A'};
    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 
    font-size: ${({ size }) => size * 0.65}px;

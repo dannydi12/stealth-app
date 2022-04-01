@@ -5,12 +5,15 @@ export const Container = styled.div`
    justify-content: center;
    align-items: center;
    gap: 13px;
+  width: 100%;
+   padding: 0 35px;
 `
 
 export const InnerContainer = styled.div`
    display: flex;
    align-items: flex-start;
    flex-direction: column;
+   width: 100%;
    gap: 8px;
 `
 export const Header = styled.div`

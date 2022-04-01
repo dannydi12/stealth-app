@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
@@ -12,13 +13,15 @@ import { StyledMap, MarkerButton } from './Map.Styled'
 const Map: React.FC = () => { 
    const [latitude, setLatitude] = useState(44.648766)
    const [longitude, setLongitude] = useState(-63.575237)
-   const [id, setId] = useState()
+   const [id, setId] = useState<string>()
    const [show, setShow] = useState(false)
    const [drops, setDrops] = useState<Drop[]>([])
 
-   const handleClick = (key) => {
+   const handleClick = (key: string, isGray: boolean) => {
+     if (!isGray) {
       setId(key)
       setShow(true)
+     }
    }
 
    const handleClose = () => {
@@ -34,6 +37,16 @@ const Map: React.FC = () => {
 
       setLatitude(lat)
       setLongitude(long)
+   }
+
+   const isGray = (drop: any) => {
+     if (!drop || !drop.location) {
+       return true
+     }
+     const yes1 = Math.abs(longitude - drop.location.coordinates[0]) > 0.01
+     const yes2 = Math.abs(latitude - drop.location.coordinates[1]) > 0.01
+
+      return yes1 && yes2
    }
 
    const listenForPosition = async () => {
@@ -93,14 +106,14 @@ const Map: React.FC = () => {
                <div className="user-location-blip" />
             </Marker>
 
-            {drops.length > 0 && drops.map((drop, index) => (
-               <MarkerButton onClick={() => handleClick(drop._id)}>
+            {drops.map((drop: any) => (
+               <MarkerButton onClick={() => handleClick(drop._id, isGray(drop))}>
                   <Marker
                      longitude={drop.location.coordinates[0]}
                      latitude={drop.location.coordinates[1]}
                      key={drop._id}
                   >
-                     <Avatar avatar={{ color: drop.author?.avatar?.color || '', emoji: drop.author?.avatar?.pfp || '' }} size={50} />
+                     <Avatar isDisabled={isGray(drop)} avatar={{ color: drop.author?.avatar?.color || '', emoji: drop.author?.avatar?.pfp || '' }} size={50} />
                   </Marker>
                </MarkerButton>
             ))}

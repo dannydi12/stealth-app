@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Drop } from '../../../types/Drop'
 import { mailman } from '../../../utils/scripts/mailman'
+import { userStore } from '../../../utils/userContext'
 import { BottomSheet } from '../BottomSheet'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
@@ -19,16 +20,28 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    const [views, setViews] = useState(5000)
    const [scale, setScale] = useState(1)
    const [drop, setDrop] = useState<Drop | null>(null)
+   const [comments, setComments] = useState<any>([])
+   const { user } = useContext(userStore)
 
    const getDrop = async () => {
       const dropData = await mailman(`drops/${id}`, 'GET')
       setDrop(dropData)
+      setComments(dropData.comments)
    }
 
    const handleSubmit = async (e: any, data: string) => {
       e.preventDefault()
-      await mailman('comments', 'POST', { message: data, type: 'message', drop: id })
-      console.log(data)
+      const comment = await mailman('comments', 'POST', { message: data, type: 'message', drop: id })
+      // alert(JSON.stringify(comment))
+      setComments((prev) => prev.concat([{
+        ...comment,
+        author: {
+          username: user?.username,
+          avatar: user?.avatar,
+          drop: drop?._id,
+          type: 'message',
+        },
+      }]))
    }
 
    useEffect(() => {
@@ -51,7 +64,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
             isPost={isPost}
          />
          <Body>
-            {drop?.comments && drop?.comments.map((mes) => (
+            {comments.map((mes: any) => (
                <Message
                   avatar={{
                      emoji: isPost ? mes.author?.avatar.pfp || '' : '📍',

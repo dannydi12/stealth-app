@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 import { formatDate } from '../../../helper'
 import { Avatar } from '../Avatar'
@@ -21,16 +21,16 @@ type Props = {
 }
 
 const Message: React.FC<Props> = ({ children, username, date, avatar }) => (
-   <Container>
-      <Avatar size={38} avatar={avatar} />
-      <InnerContainer>
-         <Header>
-            <Username>@{username}</Username>
-            <DatePosted>{formatDate(moment(date))}</DatePosted>
-         </Header>
-         <MessageContent>{children}</MessageContent>
-      </InnerContainer>
-   </Container>
-)
+    <Container>
+       <Avatar size={38} avatar={avatar} />
+       <InnerContainer>
+          <Header>
+             <Username>@{username}</Username>
+             <DatePosted>{formatDate(moment(date))}</DatePosted>
+          </Header>
+          <MessageContent>{children}</MessageContent>
+       </InnerContainer>
+    </Container>
+ )
 
 export default Message
