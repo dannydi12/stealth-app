@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './utils/firebase'
 import { Capacitor } from '@capacitor/core'
 import { Keyboard } from '@capacitor/keyboard'
@@ -8,14 +8,20 @@ import { AppRoutes } from './components/AppRoutes'
 import { GlobalStyle } from './theme'
 
 const App: React.FC = () => {
-   useEffect(() => {
-      const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
-
-      if (canKeyboard) {
-         Keyboard.setAccessoryBarVisible({ isVisible: false })
-         Keyboard.setResizeMode({ mode: 'body' })
-      }
-   }, [])
+   const [keyboardH, setKeyboardH] = useState(0)
+   Keyboard.addListener('keyboardWillShow', ({ keyboardHeight }) => {
+      setKeyboardH(keyboardH)
+      requestAnimationFrame(() => {
+         document.body.style.transform = `translateY(-${keyboardHeight}px)`
+         document.activeElement.scrollIntoViewIfNeeded(true)
+      })
+   })
+   Keyboard.addListener('keyboardWillHide', () => {
+      requestAnimationFrame(() => {
+         document.body.style.transform = `translateY(${keyboardH}px)`
+         document.activeElement.scrollIntoViewIfNeeded(true)
+      })
+   })
 
    return (
       <BrowserRouter>

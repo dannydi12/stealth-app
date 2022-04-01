@@ -3,7 +3,6 @@ import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
-import { PostMessage } from '../../shared/PostMessage'
 import { StyledMap, MarkerButton, MapOverlay, Footer } from './Map.Styled'
 
 const Map: React.FC = () => {
@@ -11,16 +10,15 @@ const Map: React.FC = () => {
    const [longitude, setLongitude] = useState(-63.575237)
    const [id, setId] = useState('')
    const [show, setShow] = useState(false)
+   const [showDrop, setShowDrop] = useState(false)
 
    const handleClick = (key) => {
-      console.log(key)
       setId(key)
       setShow(true)
    }
 
    const handleSubmit = (e: any, data: string) => {
       e.preventDefault()
-      console.log(data)
    }
 
    useEffect(() => {
@@ -41,7 +39,14 @@ const Map: React.FC = () => {
 
    return (
       <StyledMap>
-         {show && <MapOverlay onClick={() => setShow(false)} />}
+         {(show || showDrop) && (
+            <MapOverlay
+               onClick={() => {
+                  setShow(false)
+                  setShowDrop(false)
+               }}
+            />
+         )}
          <MapBox
             initialViewState={{
                zoom: 18,
@@ -77,7 +82,13 @@ const Map: React.FC = () => {
             ))}
          </MapBox>
          <Drawer id={id} show={show} handleClose={() => setShow(false)} />
-         {!show && <CreateDrop />}
+         {!show && (
+            <CreateDrop
+               show={showDrop}
+               handleClose={() => setShowDrop(false)}
+               handleOpen={() => setShowDrop(true)}
+            />
+         )}
       </StyledMap>
    )
 }

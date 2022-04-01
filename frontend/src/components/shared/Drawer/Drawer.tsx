@@ -1,49 +1,9 @@
 import React, { useState } from 'react'
-import { animated, useSpring } from 'react-spring'
-import styled from 'styled-components'
-import { BottomSheet } from '../BottomSheet'
+import { useSpring } from 'react-spring'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
+import { Container, Footer, Body } from './Drawer.styled'
 import DrawerHeader from './DrawerHeader'
-
-const Container = styled(animated.div)`
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-
-   height: 720px;
-
-   width: 100%;
-
-   padding: 55px 0px;
-
-   background-color: #1c1c1e;
-   position: absolute;
-   z-index: 2;
-
-   bottom: 0;
-`
-
-const Body = styled.div`
-   display: flex;
-   align-items: flex-start;
-   flex-direction: column;
-   gap: 24px;
-   height: 100%;
-   overflow: auto;
-   padding-top: 24px;
-`
-
-const Footer = styled.div`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: absolute;
-   bottom: 0;
-   height: 92px;
-   width: 100%;
-   background-color: #27272a;
-`
 
 type Props = {
    id: string
@@ -84,7 +44,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    }
 
    return (
-      <Container style={style}>
+      <Container style={style} className="drawer">
          <DrawerHeader
             scale={scale}
             avatar={{ emoji, color }}

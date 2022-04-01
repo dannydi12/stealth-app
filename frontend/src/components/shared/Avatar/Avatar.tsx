@@ -11,7 +11,7 @@ type Props = {
 }
 
 const Avatar: React.FC<Props> = ({ avatar, scale = 1, size = 80 }) => (
-   <Container scale={scale} size={size}>
+   <Container scale={scale} size={size} className="avatar">
       <InnerContainer size={size} color={avatar.color}>
          <span>{avatar.emoji}</span>
       </InnerContainer>
