@@ -50,7 +50,8 @@ const Map: React.FC = () => {
    }
 
    const getDrops = async () => {
-      await mailman('drops', 'GET', undefined, undefined, { currentCoordinates: [0, 0] })
+      const drops = await mailman('drops', 'GET', undefined, undefined, { currentCoordinates: [0, 0] })
+      alert(JSON.stringify(drops))
    }
 
    useEffect(() => {

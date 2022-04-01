@@ -19,7 +19,7 @@ export const DropSchema = new Schema<DropType>(
     message: String,
     type: { type: String, required: true },
     location: {
-      type: { type: String, required: true },
+      type: { type: String, enum: ['Point'], required: true },
       coordinates: { type: [Number], required: true },
     },
     comments: [{ type: CommentSchema, ref: 'Comment' }],
