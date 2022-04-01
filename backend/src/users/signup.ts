@@ -11,7 +11,7 @@ signupRouter.route('/').post(async (req, res) => {
     const token = req?.headers?.authorization?.split('Bearer ')[1] || ''
     const decodedToken = await auth.verifyIdToken(token)
 
-    if (decodedToken.uid) {
+    if (!decodedToken.uid) {
       throw new Error('Auth error.')
     }
 

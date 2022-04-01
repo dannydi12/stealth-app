@@ -19,7 +19,6 @@ const Container = styled.div`
 const Home: React.FC = () => (
   <Container>
     sup fuckers 
-    <Map />
     <Link to={auth.auth}>To Auth</Link> 
   </Container>
 )
