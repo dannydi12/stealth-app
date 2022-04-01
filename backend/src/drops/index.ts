@@ -7,7 +7,7 @@ const dropRouter = express.Router();
 
 // get all
 dropRouter.route('/')
-  .get(onlyAuthorized, async (req, res) => {
+  .get(async (req, res) => {
     const { currentCoordinates } = req.query;
 
     if (!currentCoordinates) {

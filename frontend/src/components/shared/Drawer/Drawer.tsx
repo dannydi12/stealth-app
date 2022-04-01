@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect, useState } from 'react'
 import { Drop } from '../../../types/Drop'
 import { mailman } from '../../../utils/scripts/mailman'
@@ -31,7 +32,7 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    }
 
    useEffect(() => {
-      getDrop()
+     getDrop()
    }, [])
 
    return (
@@ -46,11 +47,11 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
             views={views}
             postDate={new Date(drop?.createdAt || '')}
             message={drop?.message || ''}
-            posts={drop?.comments.length || 0}
+            posts={drop?.comments ? drop.comments.length : 0}
             isPost={isPost}
          />
          <Body>
-            {drop?.comments.map((mes) => (
+            {drop?.comments && drop?.comments.map((mes) => (
                <Message
                   avatar={{
                      emoji: isPost ? mes.author?.avatar.pfp || '' : '📍',

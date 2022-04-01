@@ -25,7 +25,7 @@ const Message: React.FC<Props> = ({ children, username, date, avatar }) => (
       <Avatar size={38} avatar={avatar} />
       <InnerContainer>
          <Header>
-            <Username>{username}</Username>
+            <Username>@{username}</Username>
             <DatePosted>{formatDate(moment(date))}</DatePosted>
          </Header>
          <MessageContent>{children}</MessageContent>
