@@ -23,18 +23,6 @@ const StyledMap = styled.div`
     height: 100% !important;
   }
 
-  .terminal {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 9999999;
-    color: white;
-  }
-
   .mapboxgl-ctrl-logo {
     display: none;
   }
