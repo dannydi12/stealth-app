@@ -1,30 +1,9 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Capacitor } from '@capacitor/core'
-import { Keyboard } from '@capacitor/keyboard'
+import React, { FC } from 'react'
 import { StyledDropInput } from '.'
 import { Avatar } from '../Avatar'
 
 const DropInput: FC = () => {
-  const [windowHeight, setWindowHeight] = useState(window.visualViewport.height)
-
-  const handleInput = () => {
-
-  }
-
-  const handleKeyboard = () => {
-    setWindowHeight(window.visualViewport.height)
-  }
-
-  useEffect(() => {
-    const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
-
-    if (!canKeyboard) {
-      return
-    }
-
-    Keyboard.addListener('keyboardDidShow', handleKeyboard)
-    Keyboard.addListener('keyboardDidHide', handleKeyboard)
-  }, [])
+  const nope = 'NOPE'
 
   return (
     <StyledDropInput>

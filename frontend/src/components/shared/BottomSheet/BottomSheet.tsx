@@ -1,6 +1,7 @@
 import React, { createRef, FC, ReactNode } from 'react'
 import { BottomSheet as SpringSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
-import { StyledBottomSheet } from '.'
+import { StyledBottomSheet, GlobalStyle } from '.'
+import { useKeyboardHeight } from '../../../utils/scripts/useKeyboardHeight';
 
 type Props = {
   isOpen?: boolean;
@@ -10,9 +11,11 @@ type Props = {
 
 const BottomSheet: FC<Props> = ({ isOpen, children, close }) => {
   const sheetRef = createRef<BottomSheetRef>()
+  const { keyboardHeight } = useKeyboardHeight()
 
   return (
     <StyledBottomSheet>
+      <GlobalStyle keyboardHeight={keyboardHeight} />
       <SpringSheet 
         open={!!isOpen} 
         snapPoints={({ minHeight }) => minHeight} 
