@@ -1,47 +1,35 @@
-import React, { FC, useState } from 'react'
-import { Geolocation } from '@capacitor/geolocation'
+import React, { createRef, FC, useState } from 'react'
 import generate from 'project-name-generator'
 import Confetti from 'react-confetti'
-import { useNavigate } from 'react-router-dom'
 import { StyledProfileCreator } from '.'
-import { mailman } from '../../../utils/scripts/mailman'
-import { home } from '../../routes'
 import { Avatar } from '../../shared'
 
 type AvatarType = { emoji: string; color: string }
 
 const ProfileCreator: FC = () => {
-  const navigate = useNavigate()
-  const emojis = ['✌', '😂', '😝', '😁', '😱', '👉', '🙌', '🍻', '🔥', '🌈', '☀', '🎈', '🌹', '💄', '🎀', '⚽', '🎾', '🏁', '😡', '👿', '🐻', '🐶', '🐬', '🐟', '🍀', '👀', '🚗', '🍎', '💝', '💙', '👌', '❤', '😍', '😉', '😓', '😳', '💪', '💩', '🍸', '🔑', '💖', '🌟', '🎉', '🌺', '🎶', '👠', '🏈', '⚾', '🏆', '👽', '💀', '🐵', '🐮', '🐩', '🐎', '💣', '👃', '👂', '🍓', '💘', '💜', '👊', '💋', '😘', '😜', '😵', '🙏', '👋', '🚽', '💃', '💎', '🚀', '🌙', '🎁', '⛄', '🌊', '⛵', '🏀', '🎱', '💰', '👶', '👸', '🐰', '🐷', '🐍', '🐫', '🔫', '👄', '🚲', '🍉', '🍌', '💚']
+  const emojis = ['✌', '😂', '😝', '😁', '😱', '👉', '🙌', '🍻', '🔥', '🌈', '☀', '🎈', '🌹', '💄', '🎀', '⚽', '🎾', '🏁', '😡', '👿', '🐻', '🐶', '🐬', '🐟', '🍀', '👀', '🚗', '🍎', '💝', '💙', '👌', '❤', '😍', '😉', '😓', '😳', '💪', '💩', '🍸', '🔑', '💖', '🌟', '🎉', '🌺', '🎶', '👠', '🏈', '⚾', '🏆', '👽', '💀', '🐵', '🐮', '🐩', '🐎', '💣', '👃', '👂', '🍓', '💘', '💜', '👊', '💋', '😘', '😜', '😵', '🙏', '👋', '🚽', '💃', '💎', '🚀', '🌙', '🎁', '⛄', '🌊', '⛵', '🏀', '🎱', '💰', '👶', '👸', '🐰', '🐷', '🐍', '🐫', '🔫', '👄', '🚲', '🍉', '💛', '💚']
   const colors = ['fee2e2', 'ffedd5', 'fef3c7', 'fef9c3', 'ecfccb', 'dcfce7', 'd1fae5', 'ccfbf1', 'cffafe', 'e0f2fe', 'dbeafe', 'e0e7ff', 'ede9fe', 'f3e8ff', 'fae8ff', 'fce7f3', 'ffe4e6']
   const autoHandle = generate().dashed
   const [showConfetti, setShowConfetti] = useState(false)
   const [handle, setHandle] = useState('')
   const [avatar, setAvatar] = useState<AvatarType>({ emoji: emojis[0], color: colors[1] })
 
+  const config = {
+    angle: 90,
+    spread: 360,
+    startVelocity: 40,
+    elementCount: 70,
+    dragFriction: 0.12,
+    duration: 3000,
+    stagger: 3,
+    width: '10px',
+    height: '10px',
+    perspective: '500px',
+    colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
+  }
+
   const authenticate = async () => {
-    try {
-      await Geolocation.requestPermissions()
-      const coordinates = await Geolocation.getCurrentPosition()
-      const data = {
-        username: handle || autoHandle,
-        avatar: {
-          color: avatar.color,
-          pfp: avatar.emoji,
-        },
-        signUpLocation: {
-          type: 'Point',
-          coordinates: [coordinates.coords.longitude, coordinates.coords.latitude],
-        },
-      }
-  
-      await mailman('signup', 'POST', data)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      navigate(home.home)
-      setShowConfetti(true)
-    }
+    //
   }
 
   const handleSelection = async (value: string) => {
@@ -81,7 +69,7 @@ const ProfileCreator: FC = () => {
            )
         })}
       </div>
-      <button type="button" className="finish-btn" onClick={() => authenticate()}>Finish</button>
+      <button type="button" className="finish-btn" onClick={() => setShowConfetti(true)}>Finish</button>
     </StyledProfileCreator>
   )
 }
