@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
@@ -9,13 +10,18 @@ import { StyledMap, MarkerButton } from './Map.Styled'
 const Map: React.FC = () => {
    const [latitude, setLatitude] = useState(44.648766)
    const [longitude, setLongitude] = useState(-63.575237)
-   const [id, setId] = useState('')
+   const [id, setId] = useState()
    const [show, setShow] = useState(false)
    const [drops, setDrops] = useState([])
 
    const handleClick = (key) => {
       setId(key)
       setShow(true)
+   }
+
+   const handleClose = () => {
+     setId(undefined)
+     setShow(false)
    }
 
    const loadInitialPosition = async () => {
@@ -46,9 +52,8 @@ const Map: React.FC = () => {
    }
 
    const getDrops = async () => {
-      const res = await mailman('drops', 'GET', undefined, undefined, {
-         currentCoordinates: [longitude, latitude],
-      })
+      const res = await mailman('drops', 'GET')
+      console.log(res)
       setDrops(res)
    }
 
@@ -57,7 +62,7 @@ const Map: React.FC = () => {
    }, [])
 
    useEffect(() => {
-      getDrops()
+     getDrops()
    }, [])
 
    return (
@@ -85,19 +90,19 @@ const Map: React.FC = () => {
                <div className="user-location-blip" />
             </Marker>
 
-            {[1, 2, 3].map((key, index) => (
-               <MarkerButton onClick={() => handleClick(key)}>
+            {drops.map((drop: any) => (
+               <MarkerButton onClick={() => handleClick(drop._id)}>
                   <Marker
-                     longitude={longitude + 0.001 * index}
-                     latitude={latitude + 0.001}
-                     key={key}
+                     longitude={drop.location.coordinates[0]}
+                     latitude={drop.location.coordinates[1]}
+                     key={drop._id}
                   >
-                     <Avatar avatar={{ color: 'orange', emoji: '👑' }} size={50} />
+                    <Avatar avatar={{ color: 'orange', emoji: '👑' }} size={50} />
                   </Marker>
                </MarkerButton>
             ))}
          </MapBox>
-         <Drawer id={id} show={show} handleClose={() => setShow(false)} />
+         {id && <Drawer id={id} show={show} handleClose={() => handleClose()} />}
          {!show && <CreateDrop />}
       </StyledMap>
    )
