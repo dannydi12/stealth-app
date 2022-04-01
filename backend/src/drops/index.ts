@@ -8,12 +8,12 @@ const dropRouter = express.Router();
 // get all
 dropRouter.route('/')
   .get(onlyAuthorized, async (req, res) => {
-    const { currentCoordinates } = req.body;
+    const { currentCoordinates } = req.query;
 
     const drops = await Drop.aggregate([
       {
         $geoNear: {
-          near: { type: 'Point', coordinates: currentCoordinates },
+          near: { type: 'Point', coordinates: currentCoordinates as any },
           distanceField: 'dist.calculated',
           maxDistance: 1000,
           // query: { category: 'Parks' },

@@ -12,11 +12,7 @@ export const GlobalStyle = createGlobalStyle<GlobalProps>`
 `
 
 const StyledBottomSheet = styled.div`
-   height: 50vh;
-
-   body {
-      display: none;
-   }
+   
 `
 
 export default StyledBottomSheet
