@@ -18,10 +18,6 @@ const Map: React.FC = () => {
       setShow(true)
    }
 
-   const handleSubmit = (e: any, data: string) => {
-      e.preventDefault()
-   }
-
    const loadInitialPosition = async () => {
       Geolocation.requestPermissions()
       const pos = await Geolocation.getCurrentPosition()
@@ -78,13 +74,14 @@ const Map: React.FC = () => {
             dragRotate={false}
             pitchWithRotate={false}
             doubleClickZoom={false}
+            onLoad={() => listenForPosition()}
             pitch={50}
             minZoom={10}
             maxZoom={20}
             mapStyle="mapbox://styles/mapbox/dark-v10"
             mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
          >
-            <Marker longitude={longitude} latitude={latitude}>
+            <Marker longitude={longitude} latitude={latitude} style={{ zIndex: 1 }}>
                <div className="user-location-blip" />
             </Marker>
 
