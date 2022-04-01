@@ -51,6 +51,32 @@ a {
   cursor: pointer;
 }
 
+  .sheet  {
+    & > div > div, & > div > div > div {
+      overflow: visible !important;
+    } 
+  }
+  
+  [data-rsbs-header]:before {
+    top: 8px;
+  }
+
+  [data-rsbs-has-header='false'] [data-rsbs-header] {
+    padding-top: calc(0px);
+  }
+
+  
+
+  :root {
+    --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
+    --rsbs-bg: #27272A;
+    --rsbs-handle-bg: hsla(100, 100%, 100%, 0.34);
+    --rsbs-max-w: auto;
+    --rsbs-ml: env(safe-area-inset-left);
+    --rsbs-mr: env(safe-area-inset-right);
+    --rsbs-overlay-rounded: 16px;
+  }
+
  `
 
 export default GlobalStyle

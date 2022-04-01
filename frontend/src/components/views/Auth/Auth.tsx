@@ -1,23 +1,44 @@
 import React, { FC } from 'react'
 import { SignInWithApple, SignInWithAppleOptions } from '@capacitor-community/apple-sign-in'
+import sha256 from 'crypto-js/sha256'
+import { getAuth, signInWithCredential, OAuthProvider, setPersistence } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 import { StyledAuth } from '.'
 import { auth } from '../../routes'
 import { LogoIcon } from '../../shared'
 
 const Auth: FC = () => {
   const navigate = useNavigate()
+
+  const nonce = uuidv4()
+  const encryptedNonce = sha256(nonce).toString()
   const options: SignInWithAppleOptions = {
     clientId: 'com.crosswalk.app',
     redirectURI: 'https://www.crosswalkapp.com/login',
     scopes: 'email name',
     state: '12345',
-    nonce: 'nonce',
+    nonce: encryptedNonce,
   }
 
   const authenticate = async () => {
-    const { response } = await SignInWithApple.authorize(options)
-    navigate(auth.profileCreator)
+    try {
+      const firebaseAuth = getAuth()
+      const { response } = await SignInWithApple.authorize(options)
+  
+      const appleCredential = new OAuthProvider('apple.com').credential({
+        idToken: response.identityToken,
+        rawNonce: nonce,
+      })
+      
+      await signInWithCredential(firebaseAuth, appleCredential)
+
+      await setPersistence(firebaseAuth, { type: 'LOCAL' })
+      navigate(auth.profileCreator)
+    } catch (err: any) {
+      // eslint-disable-next-line no-alert
+      alert(err.message)
+    }
   }
 
   return (
