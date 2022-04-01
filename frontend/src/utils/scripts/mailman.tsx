@@ -1,6 +1,9 @@
 import { getAuth } from 'firebase/auth'
+import { stringify } from 'query-string'
 
-export const mailman = async (endpoint: string, method: string, body?: any, auth?: string) => {
+export const mailman = async (
+  endpoint: string, method: string, body?: any, auth?: string, query?: object,
+  ) => {
   const PORT = 8000
 
   const authToken = getAuth().currentUser?.getIdToken()
@@ -15,10 +18,12 @@ export const mailman = async (endpoint: string, method: string, body?: any, auth
     body: body ? JSON.stringify(body) : undefined,
   }
 
-  const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}`
+  const stringifiedQuery = stringify(query || {})
+
+  const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
   
   try {
-    console.log(endpoint, method, body)
+    console.log(url, endpoint, method, body)
 
     const response = await fetch(url, fetchConfig)
     return await response.json()

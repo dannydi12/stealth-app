@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
+import { mailman } from '../../../utils/scripts/mailman'
 import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
 import { StyledMap, MarkerButton, MapOverlay } from './Map.Styled'
@@ -48,8 +49,16 @@ const Map: React.FC = () => {
       )
    }
 
+   const getDrops = async () => {
+      await mailman('drops', 'GET', undefined, undefined, { currentCoordinates: [0, 0] })
+   }
+
    useEffect(() => {
       loadInitialPosition()
+   }, [])
+
+   useEffect(() => {
+      getDrops()
    }, [])
 
    return (
