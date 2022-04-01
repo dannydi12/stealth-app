@@ -39,7 +39,7 @@ const ProfileCreator: FC = () => {
     } catch (err) {
       console.log(err)
     } finally {
-      navigate(home.home)
+      navigate(home.map)
       setShowConfetti(true)
     }
   }

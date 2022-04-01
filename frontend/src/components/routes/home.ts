@@ -1,3 +1,4 @@
 export const home = {
-  home: '/home',
+  map: '/map',
+  splash: '/',
 }
