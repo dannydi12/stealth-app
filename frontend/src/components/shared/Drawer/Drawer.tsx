@@ -1,118 +1,68 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import { Drop } from '../../../types/Drop'
+import { mailman } from '../../../utils/scripts/mailman'
+import { BottomSheet } from '../BottomSheet'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
+import { Footer, Body } from './Drawer.styled'
 import DrawerHeader from './DrawerHeader'
-
-const InnerContainer = styled.div`
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-
-   height: 720px;
-
-   width: 100%;
-
-   padding: 55px 0px;
-
-   background-color: #1c1c1e;
-   position: relative;
-`
-
-const Container = styled.div`
-   display: flex;
-   justify-content: flex-end;
-   align-items: center;
-   flex-direction: column;
-   height: 100%;
-   width: 100%;
-   background-color: rgba(0, 0, 0, 0.7);
-`
-
-const Body = styled.div`
-   display: flex;
-   align-items: flex-start;
-   flex-direction: column;
-   gap: 24px;
-   height: 100%;
-   overflow: auto;
-   padding-top: 24px;
-`
-
-const Footer = styled.div`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: absolute;
-   bottom: 0;
-   height: 92px;
-   width: 100%;
-   background-color: #27272a;
-`
 
 type Props = {
    id: string
    isPost?: boolean
+   show: boolean
+   handleClose: () => void
 }
 
-const Drawer: React.FC<Props> = ({ id, isPost = true }) => {
-   const [pfp, setPfp] = useState('🥐')
-   const [color, setColor] = useState('#E0F2FE')
-   const [username, setUsername] = useState('@tobiasaf')
-   const [message, setMessage] = useState('I just had the best croissant and coffee. ')
+const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
    const [views, setViews] = useState(5000)
-   const [postDate, setPostDate] = useState(new Date())
    const [scale, setScale] = useState(1)
-   const [locationName, setLocationName] = useState('Los Angeles')
-   const [messages, setMessages] = useState([
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-      { pfp, postDate, username, color, message, locationName },
-   ])
-   const [posts, setPosts] = useState(31)
+   const [drop, setDrop] = useState<Drop| null>(null)
 
-   const handleSubmit = (e: any, data: string) => {
+   const getDrop = async () => {
+      const dropData = await mailman(`drops/${id}`, 'GET')
+      setDrop(dropData)
+   }
+
+   const handleSubmit = async (e: any, data: string) => {
       e.preventDefault()
+      await mailman('drops', 'POST', { message: data, type: 'message', drop: id })
       console.log(data)
    }
 
+   useEffect(() => {
+      getDrop()
+   }, [])
+
    return (
-      <Container>
-         <InnerContainer>
-            <DrawerHeader
-               scale={scale}
-               color={color}
-               pfp={pfp}
-               username={username}
-               views={views}
-               postDate={postDate}
-               message={message}
-               posts={posts}
-               isPost={isPost}
-            />
-            <Body>
-               {messages.map((mes) => (
-                  <Message
-                     pfp={isPost ? mes.pfp : '📍'}
-                     date={mes.postDate}
-                     username={isPost ? mes.username : mes.locationName}
-                     color={mes.color}
-                  >
-                     {mes.message}
-                  </Message>
-               ))}
-            </Body>
-            {isPost && (
-               <Footer>
-                  <PostMessage onSubmit={handleSubmit} />
-               </Footer>
-            )}
-         </InnerContainer>
-      </Container>
+      <BottomSheet close={handleClose} isOpen={show} focus={false}>
+         <DrawerHeader
+            scale={scale}
+            avatar={{ emoji: drop?.author?.avatar.pfp || '', color: drop?.author?.avatar.color || '' }}
+            username={drop?.author?.username || ''}
+            views={views}
+            postDate={new Date(drop?.createdAt || '')}
+            message={drop?.message || ''}
+            posts={drop?.comments.length || 0}
+            isPost={isPost}
+         />
+         <Body>
+            {drop?.comments.map((mes) => (
+               <Message
+                  avatar={{ emoji: isPost ? mes.author?.avatar.pfp || '' : '📍', color: mes.author?.avatar.color || '' }}
+                  date={new Date(mes.createdAt)}
+                  username={mes.author?.username || ''}
+               >
+                  {mes.message}
+               </Message>
+            ))}
+         </Body>
+         {isPost && (
+            <Footer>
+               <PostMessage onSubmit={handleSubmit} />
+            </Footer>
+         )}
+      </BottomSheet>
    )
 }
 

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './utils/firebase'
 import { Capacitor } from '@capacitor/core'
 import { Keyboard } from '@capacitor/keyboard'
@@ -9,22 +9,22 @@ import { GlobalStyle } from './theme'
 import { UserPovider } from './utils/userContext'
 
 const App: React.FC = () => {
-  useEffect(() => {
-    const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
+   useEffect(() => {
+      const canKeyboard = Capacitor.isPluginAvailable('Keyboard')
 
-    if (canKeyboard) {
-      Keyboard.setAccessoryBarVisible({ isVisible: false })
-      Keyboard.setResizeMode({ mode: 'none' })
-    }
-  }, [])
+      if (canKeyboard) {
+         Keyboard.setAccessoryBarVisible({ isVisible: false })
+         Keyboard.setResizeMode({ mode: 'none' })
+      }
+   }, [])
 
    return (
-     <BrowserRouter>
-        <GlobalStyle />
-        <UserPovider>
-          <AppRoutes />
-        </UserPovider>
-     </BrowserRouter>
+      <BrowserRouter>
+         <GlobalStyle />
+         <UserPovider>
+            <AppRoutes />
+         </UserPovider>
+      </BrowserRouter>
    )
 }
 

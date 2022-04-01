@@ -51,11 +51,12 @@ a {
   cursor: pointer;
 }
 
-
-  [data-rsbs-overlay] {
-    overflow: visible !important;
+  .sheet  {
+    & > div > div, & > div > div > div {
+      overflow: visible !important;
+    } 
   }
-
+  
   [data-rsbs-header]:before {
     top: 8px;
   }

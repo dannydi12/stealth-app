@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
 type GlobalProps = {
-  keyboardHeight: number;
+   keyboardHeight: number
 }
 
 export const GlobalStyle = createGlobalStyle<GlobalProps>`
@@ -12,11 +12,11 @@ export const GlobalStyle = createGlobalStyle<GlobalProps>`
 `
 
 const StyledBottomSheet = styled.div`
-  height: 50vh;
+   height: 50vh;
 
-  body {
-    display: none;
-  }
+   body {
+      display: none;
+   }
 `
 
 export default StyledBottomSheet
