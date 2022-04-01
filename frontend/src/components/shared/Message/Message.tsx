@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { formatDate } from '../../../helper'
-import { ProfileIcon } from '../ProfileIcon'
+import { Avatar } from '../Avatar'
 import {
    Container,
    InnerContainer,
@@ -12,17 +12,17 @@ import {
 } from './Message.styled'
 
 type Props = {
-   color: string
-   pfp: string
+   avatar: {
+      emoji: string
+      color: string
+   }
    username: string
    date: Date
 }
 
-const Message: React.FC<Props> = ({ children, color, pfp, username, date }) => (
+const Message: React.FC<Props> = ({ children, username, date, avatar }) => (
    <Container>
-      <ProfileIcon size="38px" fontSize="21px" color={color}>
-         {pfp}
-      </ProfileIcon>
+      <Avatar size={38} avatar={avatar} />
       <InnerContainer>
          <Header>
             <Username>{username}</Username>

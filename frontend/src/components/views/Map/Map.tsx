@@ -1,82 +1,104 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
-import { Map as MapBox, Marker, MapRef } from 'react-map-gl'
-import { StyledMap } from '.'
-import { Avatar } from '../../shared'
+import { Map as MapBox, Marker } from 'react-map-gl'
+import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
+import { StyledMap, MarkerButton, MapOverlay } from './Map.Styled'
 
 const Map: React.FC = () => {
-  const mapRef = createRef<MapRef>()
-  const [latitude, setLatitude] = useState(0)
-  const [longitude, setLongitude] = useState(0)
+   const [latitude, setLatitude] = useState(44.648766)
+   const [longitude, setLongitude] = useState(-63.575237)
+   const [id, setId] = useState('')
+   const [show, setShow] = useState(false)
+   const [showDrop, setShowDrop] = useState(false)
 
-  const loadInitialPosition = async () => {
-    Geolocation.requestPermissions()
-    const pos = await Geolocation.getCurrentPosition()
-    const lat = pos?.coords.latitude || 0
-    const long = pos?.coords.longitude || 0
+   const handleClick = (key) => {
+      setId(key)
+      setShow(true)
+   }
 
-    setLatitude(lat)
-    setLongitude(long)
-  }
+   const handleSubmit = (e: any, data: string) => {
+      e.preventDefault()
+   }
 
-  const listenForPosition = async () => {
-    Geolocation.requestPermissions()
-
-    await Geolocation.watchPosition({
-      enableHighAccuracy: true,
-    }, (data) => {
-      const lat = data?.coords.latitude || 0
-      const long = data?.coords.longitude || 0
+   const loadInitialPosition = async () => {
+      Geolocation.requestPermissions()
+      const pos = await Geolocation.getCurrentPosition()
+      const lat = pos?.coords.latitude || 0
+      const long = pos?.coords.longitude || 0
 
       setLatitude(lat)
       setLongitude(long)
-    })
-  }
+   }
 
-  useEffect(() => {
-    loadInitialPosition()
-  }, [])
+   const listenForPosition = async () => {
+      Geolocation.requestPermissions()
+
+      await Geolocation.watchPosition(
+         {
+            enableHighAccuracy: true,
+         },
+         (data) => {
+            const lat = data?.coords.latitude || 0
+            const long = data?.coords.longitude || 0
+
+            setLatitude(lat)
+            setLongitude(long)
+         },
+      )
+   }
+
+   useEffect(() => {
+      loadInitialPosition()
+   }, [])
 
    return (
-    <StyledMap>
-      {(!!longitude && !!latitude) && (
-        <MapBox 
-          initialViewState={{
-            zoom: 18,
-            longitude,
-            latitude,
-          }}
-          longitude={longitude}
-          latitude={latitude}
-          ref={mapRef}
-          logoPosition="top-left"
-          attributionControl={false}
-          dragPan={false}
-          dragRotate={false}
-          pitchWithRotate={false}
-          doubleClickZoom={false}
-          pitch={50}
-          minZoom={10}
-          maxZoom={20}
-          onLoad={() => listenForPosition()}
-          mapStyle="mapbox://styles/mapbox/dark-v10"
-          mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
-        >
-          <Marker longitude={longitude} latitude={latitude} style={{ zIndex: 1 }}>
-            <div className="user-location-blip" />
-          </Marker>
-
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((key, index) => (
-            <Marker longitude={longitude + 0.001 * index} latitude={latitude + 0.001} key={key}>
-              <Avatar avatar={{ color: 'orange', emoji: '👑' }} size={50} />
+      <StyledMap>
+         {(show || showDrop) && (
+            <MapOverlay
+               onClick={() => {
+                  setShow(false)
+                  setShowDrop(false)
+               }}
+            />
+         )}
+         <MapBox
+            initialViewState={{
+               zoom: 18,
+            }}
+            latitude={latitude}
+            longitude={longitude}
+            logoPosition="top-left"
+            attributionControl={false}
+            dragPan={false}
+            dragRotate={false}
+            pitchWithRotate={false}
+            doubleClickZoom={false}
+            pitch={50}
+            minZoom={10}
+            maxZoom={20}
+            mapStyle="mapbox://styles/mapbox/dark-v10"
+            mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
+         >
+            <Marker longitude={longitude} latitude={latitude}>
+               <div className="user-location-blip" />
             </Marker>
-          ))}
-        </MapBox>
-      )}
-      
-      <CreateDrop />
-    </StyledMap>
+
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((key, index) => (
+               <MarkerButton onClick={() => handleClick(key)}>
+                  <Marker
+                     longitude={longitude + 0.001 * index}
+                     latitude={latitude + 0.001}
+                     key={key}
+                  >
+                     <Avatar avatar={{ color: 'orange', emoji: '👑' }} size={50} />
+                  </Marker>
+               </MarkerButton>
+            ))}
+         </MapBox>
+         <Drawer id={id} show={show} handleClose={() => setShow(false)} />
+         {!show && <CreateDrop />}
+      </StyledMap>
    )
 }
 
