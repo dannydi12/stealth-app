@@ -12,12 +12,14 @@ export const mailman = async (endpoint: string, method: string, body?: any, auth
       Accept: 'application/json',
       Authorization: auth || `Bearer ${authToken}`,
     },
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : undefined,
   }
 
   const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}`
   
   try {
+    console.log(endpoint, method, body)
+
     const response = await fetch(url, fetchConfig)
     return await response.json()
   } catch (err) {

@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Drop } from '../../../types/Drop'
+import { mailman } from '../../../utils/scripts/mailman'
 import { BottomSheet } from '../BottomSheet'
 import { Message } from '../Message'
 import { PostMessage } from '../PostMessage'
@@ -13,29 +15,12 @@ type Props = {
 }
 
 const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
-   const [emoji, setEmoji] = useState('🥐')
-   const [color, setColor] = useState('#E0F2FE')
-   const [username, setUsername] = useState('@tobiasaf')
-   const [message, setMessage] = useState('I just had the best croissant and coffee. ')
    const [views, setViews] = useState(5000)
-   const [postDate, setPostDate] = useState(new Date())
    const [scale, setScale] = useState(1)
-   const [locationName, setLocationName] = useState('Los Angeles')
-   const [messages, setMessages] = useState([
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color: 'red', message, locationName },
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color, message, locationName },
-      { emoji, postDate, username, color: 'red', message, locationName },
-      { emoji, postDate, username, color: 'red', message, locationName },
-   ])
-   const [posts, setPosts] = useState(31)
+   const [drop, setDrop] = useState<Drop| null>(null)
 
    const getDrop = async () => {
-      const dropData = await mailman(`drops/${id}`, 'GET', {})
+      const dropData = await mailman(`drops/${id}`, 'GET')
       setDrop(dropData)
    }
 
@@ -53,20 +38,20 @@ const Drawer: React.FC<Props> = ({ id, isPost = true, show, handleClose }) => {
       <BottomSheet close={handleClose} isOpen={show} focus={false}>
          <DrawerHeader
             scale={scale}
-            avatar={{ emoji, color }}
-            username={username}
+            avatar={{ emoji: drop?.author?.avatar.pfp || '', color: drop?.author?.avatar.color || '' }}
+            username={drop?.author?.username || ''}
             views={views}
-            postDate={postDate}
-            message={message}
-            posts={posts}
+            postDate={new Date(drop?.createdAt || '')}
+            message={drop?.message || ''}
+            posts={drop?.comments.length || 0}
             isPost={isPost}
          />
          <Body>
-            {messages.map((mes) => (
+            {drop?.comments.map((mes) => (
                <Message
-                  avatar={{ emoji: isPost ? mes.emoji : '📍', color: mes.color }}
-                  date={mes.postDate}
-                  username={isPost ? mes.username : mes.locationName}
+                  avatar={{ emoji: isPost ? mes.author?.avatar.pfp || '' : '📍', color: mes.author?.avatar.color || '' }}
+                  date={new Date(mes.createdAt)}
+                  username={mes.author?.username || ''}
                >
                   {mes.message}
                </Message>
