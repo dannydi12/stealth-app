@@ -24,17 +24,18 @@ const useUser = () => {
     setLoaded(true)
   }
 
-  const getUser = async (): Promise<User> => mailman('users', 'GET', {}, '')
+  const getUser = async (): Promise<User> => mailman('users', 'GET', undefined, '')
 
   // eslint-disable-next-line consistent-return
   useEffect(() => onAuthStateChanged(auth, async (newUser) => {
-      if (!newUser) {
+    if (!newUser) {
         setLoaded(true)
         return setUser(null)
       }
 
       const userData = await getUser()
       setUser(userData)
+      
       setLoaded(true)
     }), [])
 
