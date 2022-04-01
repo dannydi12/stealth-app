@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { Avatar, Drawer } from '../../shared'
+import { CreateDrop } from '../../shared/CreateDrop'
 import { PostMessage } from '../../shared/PostMessage'
 import { StyledMap, MarkerButton, MapOverlay, Footer } from './Map.Styled'
 
@@ -76,9 +77,7 @@ const Map: React.FC = () => {
             ))}
          </MapBox>
          <Drawer id={id} show={show} />
-         <Footer>
-            <PostMessage onSubmit={handleSubmit} />
-         </Footer>
+         <CreateDrop />
       </StyledMap>
    )
 }

@@ -1,4 +1,16 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const blipKeyframes = keyframes`
+  0 {
+    box-shadow: 0 0 0 0 rgba(0, 122, 255, 1);
+  }
+  50% {
+    box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 30px rgba(0, 122, 255, 0);
+  }
+`
 
 export const StyledMap = styled.div`
    position: relative;
@@ -31,13 +43,14 @@ export const StyledMap = styled.div`
       display: none;
    }
 
-   .user-location-blip {
-      height: 20px;
-      width: 20px;
-      background: #007aff;
-      border-radius: 50%;
-      border: 2px solid white;
-   }
+  .user-location-blip {
+    height: 20px;
+    width: 20px;
+    background: #007AFF;
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: ${blipKeyframes} infinite 2s;
+  }
 `
 
 export const MapOverlay = styled.div`
