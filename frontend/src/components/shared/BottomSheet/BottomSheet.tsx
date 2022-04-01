@@ -24,6 +24,7 @@ const BottomSheet: FC<Props> = ({ isOpen, children, close, focus = true }) => {
             onDismiss={() => close()}
             initialFocusRef={focus && undefined}
             scrollLocking={false}
+            blocking={false}
          >
             {children}
          </SpringSheet>

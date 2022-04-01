@@ -54,14 +54,6 @@ const Map: React.FC = () => {
 
    return (
       <StyledMap>
-         {(show || showDrop) && (
-            <MapOverlay
-               onClick={() => {
-                  setShow(false)
-                  setShowDrop(false)
-               }}
-            />
-         )}
          <MapBox
             initialViewState={{
                zoom: 18,
