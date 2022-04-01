@@ -1,5 +1,5 @@
 import express from 'express';
-import { onlyAuthorized } from '../middleware';
+import { onlyAuthorized } from '../utils/middleware';
 import { Drop } from '../models/Drop';
 
 const dropRouter = express.Router();

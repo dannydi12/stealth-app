@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import CONFIG from '../config'
+import CONFIG from '../../config'
 
 const connectToMongo = async () => {
   await mongoose.connect(CONFIG.MONGO_URL)
