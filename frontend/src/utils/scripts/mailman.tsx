@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { getAuth } from 'firebase/auth'
 import { stringify } from 'query-string'
 
@@ -20,8 +21,10 @@ export const mailman = async (
 
   const stringifiedQuery = stringify(query || {})
 
-  const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
-  
+  // const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
+  const server = process.env.REACT_APP_SERVER_URL || ''
+  const url = `${server}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
+
   try {
     const response = await fetch(url, fetchConfig)
     return await response.json()

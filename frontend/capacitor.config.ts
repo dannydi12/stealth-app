@@ -5,10 +5,12 @@ const config: CapacitorConfig = {
    appName: 'crosswalk',
    webDir: 'build',
    bundledWebRuntime: false,
+   /*
    server: {
-      url: 'http://192.168.3.154:3000',
+      url: 'http://192.168.2.34:3000',
       cleartext: true,
    },
+   */
    plugins: {
       Keyboard: {
          resize: 'body',
