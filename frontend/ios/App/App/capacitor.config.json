@@ -7,6 +7,14 @@
 		"Keyboard": {
 			"resize": "body",
 			"style": "dark"
+		},
+		"CapacitorFirebaseAuth": {
+			"providers": [
+				"google.com",
+				"apple.com"
+			],
+			"languageCode": "en",
+			"nativeAuth": false
 		}
 	}
 }

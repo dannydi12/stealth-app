@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { Http, HttpResponse } from '@capacitor-community/http'
-import { getAuth } from 'firebase/auth'
+import firebase from 'firebase'
 import { stringify } from 'query-string'
 
 export const mailman = async (
@@ -8,15 +8,15 @@ export const mailman = async (
   ) => {
   const PORT = 8000
 
-  const authToken = await getAuth().currentUser?.getIdToken()
+  const fAuth = firebase.auth()
+  const authToken = await fAuth.currentUser?.getIdToken()
   const stringifiedQuery = stringify(query || {})
   // const url = `${window.location.protocol}//${window.location.hostname}:${PORT}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
-  const server = process.env.REACT_APP_SERVER_URL || ''
+  const server = 'https://crosswalk-345817.uc.r.appspot.com'
   const url = `${server}/${endpoint}${query ? `?${stringifiedQuery}` : ''}`
   
   const fetchConfig = {
     method,
-    url,
     headers: { 
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -26,9 +26,11 @@ export const mailman = async (
   }
 
   try {
-    const response: HttpResponse = await Http.get(fetchConfig)
-    // const response = await fetch(url, fetchConfig)
-    return await response.data
+   // const response: HttpResponse = await Http.get(fetchConfig)
+    const response = await fetch(url, fetchConfig)
+    const data = response.json()
+
+    return await data
   } catch (err) {
     return console.log(err)
   }

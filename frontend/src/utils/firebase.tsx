@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app'
+import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/firestore'
@@ -14,4 +14,4 @@ const firebaseConfig = {
   measurementId: 'G-0JP10GNM2T',
 }
 
-initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)

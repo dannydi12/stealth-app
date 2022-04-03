@@ -3,12 +3,18 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react'
 import { Geolocation } from '@capacitor/geolocation'
+import mapboxgl from 'mapbox-gl';
 import { Map as MapBox, Marker } from 'react-map-gl'
 import { Drop } from '../../../types/Drop'
 import { mailman } from '../../../utils/scripts/mailman'
 import { Avatar, Drawer } from '../../shared'
 import { CreateDrop } from '../../shared/CreateDrop'
 import { StyledMap, MarkerButton } from './Map.Styled'
+
+// This fix is required to stop `yarn build` from transpiling MapBox code
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map: React.FC = () => { 
    const [latitude, setLatitude] = useState(44.648766)
@@ -100,7 +106,7 @@ const Map: React.FC = () => {
             minZoom={10}
             maxZoom={20}
             mapStyle="mapbox://styles/mapbox/dark-v10"
-            mapboxAccessToken="pk.eyJ1IjoicnViYmVyZHVjazMyMiIsImEiOiJjbDFmOTZmdHEwMmh4M2pyb2xwNTgyZjV6In0.cR7oCjjaMLDaG4jCy4nkUg"
+            mapboxAccessToken="pk.eyJ1IjoibGVtYWoyMDAyIiwiYSI6ImNrODY5OHNvOTAwdGYzZW15NG1hdmh5MjAifQ.PM0G6FtK2doPolskw8E1BQ"
          >
             <Marker longitude={longitude} latitude={latitude} style={{ zIndex: 1 }}>
                <div className="user-location-blip" />

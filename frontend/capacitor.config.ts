@@ -12,16 +12,21 @@ const config: CapacitorConfig = {
    },
    */
    /*
-   server: {
-    hostname: 'localhost',
-    iosScheme: 'https',
-    androidScheme: 'https',
-  },
-  */
+     server: {
+      hostname: 'localhost',
+      iosScheme: 'https',
+      androidScheme: 'https',
+    },
+    */
    plugins: {
       Keyboard: {
         resize: 'body',
         style: 'dark',
+      },
+      CapacitorFirebaseAuth: {
+        providers: ['google.com', 'apple.com'],
+        languageCode: 'en',
+        nativeAuth: false,
       },
    },
 }
