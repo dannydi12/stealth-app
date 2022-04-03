@@ -61,8 +61,6 @@ dropRouter.route('/')
     //   },
     // })
 
-    console.log(drops)
-
     res.json(drops);
   })
   .post(onlyAuthorized, async (req, res) => {

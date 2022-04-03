@@ -40,11 +40,11 @@ const Map: React.FC = () => {
    }
 
    const isGray = (drop: any) => {
-     if (!drop || !drop.location) {
-       return true
-     }
-     const yes1 = Math.abs(longitude - drop.location.coordinates[0]) > 0.001
-     const yes2 = Math.abs(latitude - drop.location.coordinates[1]) > 0.001
+      if (!drop || !drop.location) {
+        return true
+      }
+      const yes1 = Math.abs(longitude - drop.location.coordinates[0]) > 0.001
+      const yes2 = Math.abs(latitude - drop.location.coordinates[1]) > 0.001
 
       return yes1 && yes2
    }

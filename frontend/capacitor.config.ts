@@ -7,14 +7,21 @@ const config: CapacitorConfig = {
    bundledWebRuntime: false,
    /*
    server: {
-      url: 'http://192.168.2.34:3000',
+      url: 'http://192.168.2.18:3000',
       cleartext: true,
    },
    */
+   /*
+   server: {
+    hostname: 'localhost',
+    iosScheme: 'https',
+    androidScheme: 'https',
+  },
+  */
    plugins: {
       Keyboard: {
-         resize: 'body',
-         style: 'dark',
+        resize: 'body',
+        style: 'dark',
       },
    },
 }

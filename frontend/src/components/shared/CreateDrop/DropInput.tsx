@@ -10,7 +10,7 @@ type Props = {
 
 const DropInput: FC<Props> = ({ user, handleChange }) => (
    <StyledDropInput>
-      {user && (
+      {user && user.avatar && (
          <>
             <div className="user-container">
                <Avatar avatar={{ emoji: user.avatar.pfp, color: user.avatar.color }} size={75} />

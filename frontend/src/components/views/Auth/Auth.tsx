@@ -37,7 +37,7 @@ const Auth: FC = () => {
          navigate(auth.profileCreator)
       } catch (err: any) {
          // eslint-disable-next-line no-alert
-         alert(err.message)
+         alert(JSON.stringify(err))
       }
    }
 

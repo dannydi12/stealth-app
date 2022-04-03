@@ -19,7 +19,7 @@ const ProfileCreator: FC = () => {
   const autoHandle = generate().dashed
   const [showConfetti, setShowConfetti] = useState(false)
   const [handle, setHandle] = useState('')
-  const [avatar, setAvatar] = useState<AvatarType>({ emoji: emojis[0], color: colors[1] })
+  const [avatar, setAvatar] = useState<AvatarType>({ emoji: emojis[0], color: `#${colors[0]}` })
 
   const authenticate = async () => {
     try {

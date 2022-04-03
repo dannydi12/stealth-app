@@ -21,7 +21,7 @@ const Splash: FC = () => {
       navigator(auth.auth)
       return
     }
-
+    
     navigator(home.map)
   }, [user, loaded, allowedToRedirect])
 
